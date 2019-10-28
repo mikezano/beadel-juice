@@ -3,7 +3,7 @@
 		<section class="beadz__tools">
 			<Tools />
 		</section>
-		<section class="beadz__view">view</section>
+		<section class="beadz__view">views</section>
 		<section class="beadz__colors">colors</section>
 	</div>
 </template>

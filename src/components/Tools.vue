@@ -10,6 +10,7 @@ export default {
 	data() {
 		return {
 			file: null,
+			pixelData: [],
 		};
 	},
 	methods: {
@@ -48,10 +49,10 @@ export default {
 				const red = data[i];
 				const green = data[i + 1];
 				const blue = data[i + 2];
-				const alpha = data[i + 3];
 
 				const hsl = this.rgbToHSL(red, green, blue);
 				console.log('HSL: ', hsl);
+				this.pixelData.push(hsl);
 			}
 		},
 
