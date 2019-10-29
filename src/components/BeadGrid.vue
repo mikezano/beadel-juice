@@ -12,17 +12,17 @@
 
 <script>
 export default {
-	props: ['pixelData'],
+	props: ["pixelData"],
 	methods: {
 		hslColor(pixel) {
 			return {
-				backgroundColor: pixel,
+				backgroundColor: pixel
 			};
-		},
+		}
 	},
 	created() {
-		console.log('Pixel Data: ', this.pixelData);
-	},
+		console.log("Pixel Data: ", this.pixelData);
+	}
 };
 </script>
 

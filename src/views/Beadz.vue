@@ -11,24 +11,24 @@
 </template>
 
 <script>
-import Tools from '../components/Tools.vue';
-import BeadGrid from '../components/BeadGrid.vue';
+import Tools from "../components/Tools.vue";
+import BeadGrid from "../components/BeadGrid.vue";
 export default {
 	data() {
 		return {
-			pixelData: [],
+			pixelData: []
 		};
 	},
 	components: {
 		Tools,
-		BeadGrid,
+		BeadGrid
 	},
 	methods: {
 		pixelsGenerated(pixelData) {
 			console.log(pixelData);
 			this.pixelData = pixelData;
-		},
-	},
+		}
+	}
 };
 </script>
 
