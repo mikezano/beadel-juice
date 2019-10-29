@@ -53,8 +53,9 @@ export default {
 				const blue = data[i + 2];
 
 				const hsl = this.rgbToHSL(red, green, blue);
+				const hex = this.rgbToHex(red, green, blue);
 				//console.log('HSL: ', hsl);
-				this.pixelData.push({ hsl: hsl, id: Math.random() });
+				this.pixelData.push({ hsl: hsl, hex: hex, id: Math.random() });
 			}
 
 			this.$emit('on-pixels-generated', this.pixelData);
@@ -100,6 +101,18 @@ export default {
 			l = +(l * 100).toFixed(1);
 
 			return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+		},
+
+		rgbToHex(r, g, b) {
+			r = r.toString(16);
+			g = g.toString(16);
+			b = b.toString(16);
+
+			if (r.length == 1) r = '0' + r;
+			if (g.length == 1) g = '0' + g;
+			if (b.length == 1) b = '0' + b;
+
+			return '#' + r + g + b;
 		},
 	},
 };

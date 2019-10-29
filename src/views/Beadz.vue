@@ -43,6 +43,9 @@ export default {
 
 	&__view {
 		flex: auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	&__tools,
