@@ -37,6 +37,8 @@ export default {
 			var canvas = this.$refs.imageCanvas;
 			canvas.width = img.width;
 			canvas.height = img.height;
+			console.log('Width:', canvas.width);
+			console.log('Height:', canvas.height);
 
 			var ctx = canvas.getContext('2d');
 			ctx.drawImage(img, 0, 0);
@@ -44,16 +46,18 @@ export default {
 			var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 			var data = imgData.data;
 			console.log(data);
-
+			debugger;
 			for (let i = 0; i < data.length; i += 4) {
 				const red = data[i];
 				const green = data[i + 1];
 				const blue = data[i + 2];
 
 				const hsl = this.rgbToHSL(red, green, blue);
-				console.log('HSL: ', hsl);
-				this.pixelData.push(hsl);
+				//console.log('HSL: ', hsl);
+				this.pixelData.push({ hsl: hsl, id: Math.random() });
 			}
+
+			this.$emit('on-pixels-generated', this.pixelData);
 		},
 
 		rgbToHSL(r, g, b) {

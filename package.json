@@ -31,6 +31,10 @@
 		"sass-loader": "^8.0.0",
 		"vue-template-compiler": "^2.6.10"
 	},
+	"extends": [
+		"plugin:vue/essential",
+		"@vue/prettier"
+	],
 	"rules": {
 		"prettier/prettier": [
 			"warn",
@@ -43,5 +47,8 @@
 				"use-tabs": true
 			}
 		]
+	},
+	"parserOptions": {
+		"parser": "babel-eslint"
 	}
 }

@@ -1,21 +1,33 @@
 <template>
 	<div class="beadz">
 		<section class="beadz__tools">
-			<Tools />
+			<Tools @on-pixels-generated="pixelsGenerated" />
 		</section>
-		<section class="beadz__view">views</section>
+		<section class="beadz__view">
+			<BeadGrid :pixel-data="pixelData" />
+		</section>
 		<section class="beadz__colors">colors</section>
 	</div>
 </template>
 
 <script>
 import Tools from '../components/Tools.vue';
+import BeadGrid from '../components/BeadGrid.vue';
 export default {
 	data() {
-		return {};
+		return {
+			pixelData: [],
+		};
 	},
 	components: {
 		Tools,
+		BeadGrid,
+	},
+	methods: {
+		pixelsGenerated(pixelData) {
+			console.log(pixelData);
+			this.pixelData = pixelData;
+		},
 	},
 };
 </script>
