@@ -6,7 +6,9 @@
 				v-for="pixel in pixelData"
 				:key="pixel.id"
 				:style="hslColor(pixel.closestHex)"
-				:title="`closest: ${pixel.closestHex}\nhex: ${pixel.hex}\nrgb: ${pixel.rgb}`"
+				:title="
+					`closest: ${pixel.closestHex}\nhex: ${pixel.hex}\nrgb: ${pixel.rgb}`
+				"
 			></div>
 		</div>
 	</div>

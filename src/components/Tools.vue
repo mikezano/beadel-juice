@@ -8,18 +8,18 @@
 <script>
 //https://docs.google.com/spreadsheets/d/1u9CIj65P48rnmLr3yLIg096lRP-w-txcqBVfKnaCDZc/edit#gid=1983628989
 
-import { findMatchByHex, rgbToHex, nearestColor } from "../models/colorCounter";
+import { rgbToHex, nearestPerlerByHex } from "../models/colorCounter";
 
+console.log("functions exist:", nearestPerlerByHex);
 export default {
-	created() {
-		const result = findMatchByHex("EAC49F");
-		console.log("Result: ", result);
-	},
 	data() {
 		return {
 			file: null,
 			pixelData: []
 		};
+	},
+	created() {
+		console.log("functions exist:", nearestPerlerByHex);
 	},
 	methods: {
 		updateCanvasImage(e) {
@@ -58,10 +58,13 @@ export default {
 				const blue = data[i + 2];
 
 				//const hsl = this.rgbToHSL(red, green, blue);
+
 				const hex = rgbToHex(red, green, blue);
+				const closest = nearestPerlerByHex(hex);
+				debugger;
 				//console.log('HSL: ', hsl);
 				this.pixelData.push({
-					closestHex: nearestColor(hex).value,
+					closestHex: closest.hex,
 					hex: hex,
 					rgb: `${red},${green},${blue}`,
 					id: Math.random()
