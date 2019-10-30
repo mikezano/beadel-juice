@@ -12,6 +12,7 @@
 	"dependencies": {
 		"core-js": "^3.3.2",
 		"nearest-color": "^0.4.4",
+		"nearest-human-color": "^1.0.3",
 		"vue": "^2.6.10",
 		"vue-router": "^3.1.3"
 	},

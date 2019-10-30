@@ -1,12 +1,14 @@
 <template>
-	<div class="bead-grid">
-		<div
-			class="bead-grid__cell"
-			v-for="pixel in pixelData"
-			:key="pixel.id"
-			:style="hslColor(pixel.hsl)"
-			:title="`${pixel.hsl}\n${pixel.hex}`"
-		></div>
+	<div class="bead-grid-container">
+		<div class="bead-grid">
+			<div
+				class="bead-grid__cell"
+				v-for="pixel in pixelData"
+				:key="pixel.id"
+				:style="hslColor(pixel.closestHex)"
+				:title="`closest: ${pixel.closestHex}\nhex: ${pixel.hex}\nrgb: ${pixel.rgb}`"
+			></div>
+		</div>
 	</div>
 </template>
 
@@ -27,6 +29,14 @@ export default {
 </script>
 
 <style>
+.bead-grid-container {
+	width: calc(100vw - 28rem);
+	height: 90vh;
+	display: flex;
+	align-content: center;
+	align-items: center;
+	overflow: auto;
+}
 .bead-grid {
 	display: grid;
 	grid-template-columns: repeat(29, 40px);

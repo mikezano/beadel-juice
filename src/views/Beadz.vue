@@ -4,7 +4,7 @@
 			<Tools @on-pixels-generated="pixelsGenerated" />
 		</section>
 		<section class="beadz__view">
-			<BeadGrid :pixel-data="pixelData" />
+			<BeadGrid :pixel-data="pixelData" v-if="pixelsAreAvailable" />
 		</section>
 		<section class="beadz__colors">colors</section>
 	</div>
@@ -27,6 +27,11 @@ export default {
 		pixelsGenerated(pixelData) {
 			console.log(pixelData);
 			this.pixelData = pixelData;
+		}
+	},
+	computed: {
+		pixelsAreAvailable() {
+			return this.pixelData.length > 0;
 		}
 	}
 };

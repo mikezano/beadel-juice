@@ -3,364 +3,364 @@
 		"code": "P01",
 		"name": "White",
 		"rgb": "247, 247, 242",
-		"hex": "F7F7F2",
+		"hex": "#F7F7F2",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P81",
 		"name": "Light Gray",
 		"rgb": "190 195, 191",
-		"hex": "BEC3BF",
+		"hex": "#BEC3BF",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P17",
 		"name": "Gray",
 		"rgb": "150, 152, 156",
-		"hex": "96989C",
+		"hex": "#96989C",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P206",
 		"name": "Pewter",
 		"rgb": "147, 161, 159",
-		"hex": "93A19F",
+		"hex": "#93A19F",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P207",
 		"name": "Charcoal",
 		"rgb": "84, 95, 95",
-		"hex": "545F5F",
+		"hex": "#545F5F",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P92",
 		"name": "Dark Gray",
 		"rgb": "86, 87, 92",
-		"hex": "56575C",
+		"hex": "#56575C",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P18",
 		"name": "Black",
 		"rgb": "52, 50, 52",
-		"hex": "343234",
+		"hex": "#343234",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P208",
 		"name": "Toasted Marshmallow",
 		"rgb": "241,229,216",
-		"hex": "F1E5D8",
+		"hex": "#F1E5D8",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P98",
 		"name": "Sand",
 		"rgb": "234,196,159",
-		"hex": "EAC49F",
+		"hex": "#EAC49F",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P205",
 		"name": "Fawn",
 		"rgb": "215,176,135",
-		"hex": "D7B087",
+		"hex": "#D7B087",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P35",
 		"name": "Tan",
 		"rgb": "207,168,137",
-		"hex": "CFA889",
+		"hex": "#CFA889",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P20",
 		"name": "Rust",
 		"rgb": "160,78,63",
-		"hex": "A04E3F",
+		"hex": "#A04E3F",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P96",
 		"name": "Cranapple",
 		"rgb": "136,64,79",
-		"hex": "88404F",
+		"hex": "#88404F",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P21",
 		"name": "Light Brown",
 		"rgb": "164,123,71",
-		"hex": "9D7153",
+		"hex": "#9D7153",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P12",
 		"name": "Brown",
 		"rgb": "108,82,77",
-		"hex": "6C524D",
+		"hex": "#6C524D",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P02",
 		"name": "Cream",
 		"rgb": "237,231,186",
-		"hex": "EDE7BA",
+		"hex": "#EDE7BA",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P56",
 		"name": "Pastel Yellow",
 		"rgb": "250,238,141",
-		"hex": "FAEE8D",
+		"hex": "#FAEE8D",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P03",
 		"name": "Yellow",
 		"rgb": "249,215,55",
-		"hex": "F9D737",
+		"hex": "#F9D737",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P57",
 		"name": "Cheddar",
 		"rgb": "255,182,78",
-		"hex": "FFB64E",
+		"hex": "#FFB64E",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P04",
 		"name": "Orange",
 		"rgb": "255,128,62",
-		"hex": "FF803E",
+		"hex": "#FF803E",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P90",
 		"name": "Butterscotch",
 		"rgb": "225,154,82",
-		"hex": "E19A52",
+		"hex": "#E19A52",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P59",
 		"name": "Hot Coral",
 		"rgb": "255,97,88",
-		"hex": "FF6158",
+		"hex": "#FF6158",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P203",
 		"name": "Salmon",
 		"rgb": "255,119,127",
-		"hex": "FF777F",
+		"hex": "#FF777F",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P63",
 		"name": "Blush",
 		"rgb": "255,158,141",
-		"hex": "FF9E8D",
+		"hex": "#FF9E8D",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P204",
 		"name": "Flamingo",
 		"rgb": "255,181,190",
-		"hex": "FFB5BE",
+		"hex": "#FFB5BE",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P33",
 		"name": "Peach",
 		"rgb": "252,198,184",
-		"hex": "FCC6B8",
+		"hex": "#FCC6B8",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P79",
 		"name": "Light Pink",
 		"rgb": "245,192,213",
-		"hex": "F5C0D5",
+		"hex": "#F5C0D5",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P06",
 		"name": "Bubble Gum",
 		"rgb": "225,109,157",
-		"hex": "E16D9D",
+		"hex": "#E16D9D",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P83",
 		"name": "Pink",
 		"rgb": "230,87,148",
-		"hex": "E65794",
+		"hex": "#E65794",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P38",
 		"name": "Magenta",
 		"rgb": "243,70,118",
-		"hex": "F34676",
+		"hex": "#F34676",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P05",
 		"name": "Red",
 		"rgb": "196,58,68",
-		"hex": "C43A44",
+		"hex": "#C43A44",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P961",
 		"name": "Cherry",
 		"rgb": "173,51,69",
-		"hex": "AD3345",
+		"hex": "#AD3345",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P88",
 		"name": "Raspberry",
 		"rgb": "173,60,108",
-		"hex": "AD3C6C",
+		"hex": "#AD3C6C",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P60",
 		"name": "Plum",
 		"rgb": "178,95,170",
-		"hex": "B25FAA",
+		"hex": "#B25FAA",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P82",
 		"name": "Light Lavender",
 		"rgb": "180,166,211",
-		"hex": "B4A6D3",
+		"hex": "#B4A6D3",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P54",
 		"name": "Pastel Lavender",
 		"rgb": "149,130,187",
-		"hex": "9582BB",
+		"hex": "#9582BB",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P07",
 		"name": "Purple",
 		"rgb": "111,84,147",
-		"hex": "6F5493",
+		"hex": "#6F5493",
 		"brand": "PERLER"
 	},
 	{
 		"code": "p93",
 		"name": "Blueberry Crème",
 		"rgb": "135,167,225",
-		"hex": "87A7E1",
+		"hex": "#87A7E1",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P70",
 		"name": "Periwinkle",
 		"rgb": "108,136,191",
-		"hex": "6C88BF",
+		"hex": "#6C88BF",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P202",
 		"name": "Robin's Egg",
 		"rgb": "180,217,223",
-		"hex": "B4D9DF",
+		"hex": "#B4D9DF",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P52",
 		"name": "Pastel Blue",
 		"rgb": "99,169,214",
-		"hex": "63A9D6",
+		"hex": "#63A9D6",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P09",
 		"name": "Light Blue",
 		"rgb": "39,138,203",
-		"hex": "278ACB",
+		"hex": "#278ACB",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P200",
 		"name": "Cobalt",
 		"rgb": "0, 102, 179",
-		"hex": "0066B3",
+		"hex": "#0066B3",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P08",
 		"name": "Dark Blue",
 		"rgb": "43,48,124",
-		"hex": "2B307C",
+		"hex": "#2B307C",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P201",
 		"name": "Midnight",
 		"rgb": "22,40,70",
-		"hex": "162846",
+		"hex": "#162846",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P58",
 		"name": "Toothpaste",
 		"rgb": "176,232,213",
-		"hex": "B0E8D5",
+		"hex": "#B0E8D5",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P62",
 		"name": "Turquoise",
 		"rgb": "0, 143, 204",
-		"hex": "008FCC",
+		"hex": "#008FCC",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P11",
 		"name": "Light Green",
 		"rgb": "56,199,175",
-		"hex": "38C7AF",
+		"hex": "#38C7AF",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P91",
 		"name": "Parrot Green",
 		"rgb": "0, 150, 138",
-		"hex": "00968A",
+		"hex": "#00968A",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P53",
 		"name": "Pastel Green",
 		"rgb": "115,213,148",
-		"hex": "73D594",
+		"hex": "#73D594",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P61",
 		"name": "Kiwi Lime",
 		"rgb": "119,202,74",
-		"hex": "77CA4A",
+		"hex": "#77CA4A",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P80",
 		"name": "Bright Green",
 		"rgb": "84,177,96",
-		"hex": "54B160",
+		"hex": "#54B160",
 		"brand": "PERLER"
 	},
 	{
@@ -374,21 +374,21 @@
 		"code": "P10",
 		"name": "Dark Green",
 		"rgb": "16,131,85",
-		"hex": "108355",
+		"hex": "#108355",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P97",
 		"name": "Prickly Pear",
 		"rgb": "203,215,53",
-		"hex": "CBD735",
+		"hex": "#CBD735",
 		"brand": "PERLER"
 	},
 	{
 		"code": "P179",
 		"name": "Evergreen",
 		"rgb": "60,97,79",
-		"hex": "3C614F",
+		"hex": "#3C614F",
 		"brand": "PERLER"
 	}
 ]
