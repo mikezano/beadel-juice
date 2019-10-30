@@ -19,7 +19,7 @@ const nearestPerlerByHex_Chroma = hexColor => {
 	let minDistance = 1000000;
 	let nearestPerler = null;
 	perler.forEach(p => {
-		const currentDistance = chroma.deltaE(p.hex, hexColor);
+		const currentDistance = chroma.distance(p.hex, hexColor);
 
 		if (currentDistance < minDistance) {
 			minDistance = currentDistance;
