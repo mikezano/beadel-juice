@@ -10,6 +10,7 @@
 		"test:unit": "vue-cli-service test:unit"
 	},
 	"dependencies": {
+		"chroma-js": "^2.0.6",
 		"core-js": "^3.3.2",
 		"nearest-color": "^0.4.4",
 		"nearest-human-color": "^1.0.3",

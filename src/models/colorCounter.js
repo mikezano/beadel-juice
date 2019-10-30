@@ -8,13 +8,29 @@ perler.forEach(p => {
 
 const nearestPerlerColor = require("nearest-human-color").from(perlerColors);
 
+const chroma = require("chroma-js");
+
 const nearestPerlerByHex = hexColor => {
 	const hex = nearestPerlerColor(hexColor).value;
 	return exactPerlerByHex(hex);
 };
 
+const nearestPerlerByHex_Chroma = hexColor => {
+	let minDistance = 1000000;
+	let nearestPerler = null;
+	perler.forEach(p => {
+		const currentDistance = chroma.deltaE(p.hex, hexColor);
+
+		if (currentDistance < minDistance) {
+			minDistance = currentDistance;
+			nearestPerler = p;
+		}
+	});
+
+	return nearestPerler;
+};
+
 const exactPerlerByHex = hexColor => {
-	debugger;
 	return perler.filter(p => p.hex === hexColor)[0];
 };
 
@@ -73,10 +89,9 @@ const rgbToHex = (r, g, b) => {
 };
 
 export {
-	perler,
 	exactPerlerByHex,
 	nearestPerlerByHex,
 	rgbToHSL,
 	rgbToHex,
-	perlerColors
+	nearestPerlerByHex_Chroma
 };
