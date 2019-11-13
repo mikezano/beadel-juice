@@ -70,11 +70,18 @@ export default {
 					closestHex: closest.hex,
 					hex: hex,
 					rgb: `${red},${green},${blue}`,
-					id: Math.random()
+					id: Math.random(),
+					name: closest.name,
+					code: closest.code
 				});
 			}
 
-			this.$emit("on-pixels-generated", this.pixelData);
+			this.$emit(
+				"on-pixels-generated",
+				this.pixelData,
+				canvas.width,
+				canvas.height
+			);
 		}
 	}
 };

@@ -4,7 +4,12 @@
 			<Tools @on-pixels-generated="pixelsGenerated" />
 		</section>
 		<section class="beadz__view">
-			<BeadGrid :pixel-data="pixelData" v-if="pixelsAreAvailable" />
+			<BeadGrid
+				:pixel-data="pixelData"
+				:width="canvasWidth"
+				:height="canvasHeight"
+				v-if="pixelsAreAvailable"
+			/>
 		</section>
 		<section class="beadz__colors">colors</section>
 	</div>
@@ -16,7 +21,9 @@ import BeadGrid from "../components/BeadGrid.vue";
 export default {
 	data() {
 		return {
-			pixelData: []
+			pixelData: [],
+			canvasHeight: 0,
+			canvasWidth: 0
 		};
 	},
 	components: {
@@ -24,9 +31,11 @@ export default {
 		BeadGrid
 	},
 	methods: {
-		pixelsGenerated(pixelData) {
+		pixelsGenerated(pixelData, width, height) {
 			console.log(pixelData);
 			this.pixelData = pixelData;
+			this.canvasWidth = width;
+			this.canvasHeight = height;
 		}
 	},
 	computed: {
