@@ -1,34 +1,40 @@
 <template>
 	<div class="beadz">
 		<section class="beadz__tools">
-			<Tools @on-pixels-generated="pixelsGenerated" />
+			<Tools @on-pixels-generated="pixelsGenerated" @on-update-zoom="zoomUpdate" />
 		</section>
 		<section class="beadz__view">
 			<BeadGrid
-				:pixel-data="pixelData"
+				:pixelData="pixelData"
 				:width="canvasWidth"
 				:height="canvasHeight"
+				:zoom="zoom"
 				v-if="pixelsAreAvailable"
 			/>
 		</section>
-		<section class="beadz__colors">colors</section>
+		<section class="beadz__colors">
+			<ColorStats :pixelData="pixelData" />
+		</section>
 	</div>
 </template>
 
 <script>
 import Tools from "../components/Tools.vue";
 import BeadGrid from "../components/BeadGrid.vue";
+import ColorStats from "../components/ColorStats.vue";
 export default {
 	data() {
 		return {
 			pixelData: [],
 			canvasHeight: 0,
-			canvasWidth: 0
+			canvasWidth: 0,
+			zoom: 0
 		};
 	},
 	components: {
 		Tools,
-		BeadGrid
+		BeadGrid,
+		ColorStats
 	},
 	methods: {
 		pixelsGenerated(pixelData, width, height) {
@@ -36,6 +42,9 @@ export default {
 			this.pixelData = pixelData;
 			this.canvasWidth = width;
 			this.canvasHeight = height;
+		},
+		zoomUpdate(zoom) {
+			this.zoom = zoom;
 		}
 	},
 	computed: {
@@ -65,7 +74,7 @@ export default {
 	&__tools,
 	&__colors,
 	&__view {
-		border: 1px solid blue;
+		border: 1px solid gray;
 	}
 }
 </style>

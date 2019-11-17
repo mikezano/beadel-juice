@@ -1,7 +1,9 @@
 <template>
 	<div class="tools">
 		<input type="file" ref="file" @change="updateCanvasImage" />
+		<input type="range" min="10" max="100" value="40" step="10" @change="updateZoom" />
 		<canvas id="canvas" ref="imageCanvas"></canvas>
+		<div>Zoom: {{zoom}}</div>
 	</div>
 </template>
 
@@ -18,7 +20,8 @@ export default {
 	data() {
 		return {
 			file: null,
-			pixelData: []
+			pixelData: [],
+			zoom: 0
 		};
 	},
 	// created() {
@@ -42,6 +45,12 @@ export default {
 
 			//this.file = this.$refs.file.files[0];
 			//console.log('file', this.file);
+		},
+
+		updateZoom(e) {
+			console.log(e);
+			this.zoom = e.target.value;
+			this.$emit("on-update-zoom", this.zoom);
 		},
 
 		drawCanvasImage(img) {

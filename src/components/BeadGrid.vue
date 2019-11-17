@@ -18,20 +18,26 @@
 
 <script>
 export default {
-	props: ["pixelData", "width", "height"],
+	props: ["pixelData", "width", "height", "zoom"],
 	methods: {
 		hslColor(pixel) {
 			return {
 				backgroundColor: pixel
 			};
+		},
+		changePixelSizing(size) {
+			this.$refs.beadGrid.style.gridTemplateColumns = `repeat(${this.width}, ${size}px)`;
+			this.$refs.beadGrid.style.gridTemplateRows = `repeat(${this.height}, ${size}px)`;
 		}
 	},
 	mounted() {
-		console.log("Pixel Data: ", this.pixelData);
-		console.log(this.$refs);
-		this.$refs.beadGrid.style.gridTemplateColumns = `repeat(${this.width}, 40px)`;
-		this.$refs.beadGrid.style.gridTemplateRows = `repeat(${this.height}, 40px)`;
-		debugger;
+		this.changePixelSizing(40);
+	},
+	watch: {
+		zoom(newVal, oldVal) {
+			console.log("zoom: ", this.zoom, oldVal, newVal);
+			this.changePixelSizing(newVal);
+		}
 	}
 };
 </script>
@@ -53,8 +59,7 @@ export default {
 	margin: auto;
 }
 .bead-grid__cell {
-	width: 40px;
-	height: 40px;
-	border: 1px solid #333;
+	width: 100%;
+	height: 100%;
 }
 </style>
