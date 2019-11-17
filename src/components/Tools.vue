@@ -75,11 +75,14 @@ export default {
 				const closest = nearestPerlerByHex_Chroma(hex);
 
 				//console.log('HSL: ', hsl);
+				const rand = Math.random();
 				this.pixelData.push({
 					closestHex: closest.hex,
 					hex: hex,
 					rgb: `${red},${green},${blue}`,
-					id: Math.random(),
+					id: rand,
+					key: `${rand}-0`,
+					highlight: false,
 					name: closest.name,
 					code: closest.code
 				});

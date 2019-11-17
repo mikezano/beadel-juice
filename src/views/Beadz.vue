@@ -5,7 +5,7 @@
 		</section>
 		<section class="beadz__view">
 			<BeadGrid
-				:pixelData="pixelData"
+				v-bind:pixelData="pixelData"
 				:width="canvasWidth"
 				:height="canvasHeight"
 				:zoom="zoom"
@@ -13,7 +13,7 @@
 			/>
 		</section>
 		<section class="beadz__colors">
-			<ColorStats :pixelData="pixelData" />
+			<ColorStats :pixelData="pixelData" @on-highlight-pixels="highlightPixels" />
 		</section>
 	</div>
 </template>
@@ -38,13 +38,21 @@ export default {
 	},
 	methods: {
 		pixelsGenerated(pixelData, width, height) {
-			console.log(pixelData);
 			this.pixelData = pixelData;
 			this.canvasWidth = width;
 			this.canvasHeight = height;
 		},
 		zoomUpdate(zoom) {
 			this.zoom = zoom;
+		},
+		highlightPixels(name) {
+			this.pixelData.forEach(p => {
+				p.highlight = p.name === name;
+				if (p.highlight === true) {
+					p.key = `${p.id}-${p.highlight ? 1 : 0}`;
+				}
+			});
+			console.log(this.pixelData);
 		}
 	},
 	computed: {

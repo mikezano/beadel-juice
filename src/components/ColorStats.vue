@@ -2,7 +2,13 @@
 	<div>
 		<h2>Pixel Deets</h2>
 		<ul class="deets">
-			<li class="deets__pixel" v-for="pixel in mappedPixels" :key="pixel.id">
+			<li
+				class="deets__pixel"
+				v-for="pixel in mappedPixels"
+				:key="pixel.id"
+				:data-name="pixel.name"
+				@mouseover="highlightPixels"
+			>
 				<div class="deets__pixel-name">{{pixel.name}}</div>
 				<div class="deets__pixel-count">{{pixel.count}}</div>
 			</li>
@@ -16,8 +22,15 @@ export default {
 	data() {
 		return {
 			mappedPixels: []
-			//rawPixels
 		};
+	},
+	methods: {
+		highlightPixels(e) {
+			//https://github.com/vuejs/vue/issues/2236
+
+			console.log(e.currentTarget.dataset.name);
+			this.$emit("on-highlight-pixels", e.currentTarget.dataset.name);
+		}
 	},
 	watch: {
 		pixelData(newPixelData) {
@@ -46,9 +59,17 @@ export default {
 <style>
 .deets {
 	list-style-type: none;
+	text-align: left;
+	padding: 0.2rem 0.4rem;
+	margin: 0;
 }
 .deets__pixel {
 	display: flex;
+	padding: 0.2rem 0;
+}
+.deets__pixel:hover {
+	background-color: #555;
+	cursor: pointer;
 }
 .deets__pixel-name {
 	width: 10rem;

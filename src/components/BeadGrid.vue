@@ -3,14 +3,15 @@
 		<div class="bead-grid" ref="beadGrid">
 			<div
 				class="bead-grid__cell"
+				:class="{'bead-grid__cell--highlight': pixel.highlight === true}"
 				v-for="pixel in pixelData"
-				:key="pixel.id"
+				:key="generateKey(pixel)"
 				:style="hslColor(pixel.closestHex)"
 				:title="
 					`${pixel.code} - ${pixel.name}\nclosest: ${pixel.closestHex}\nhex: ${pixel.hex}\nrgb: ${pixel.rgb}`
 				"
 			>
-				<span>{{pixel.code}}</span>
+				<span class="bead-grid__cell-code">{{pixel.code}}</span>
 			</div>
 		</div>
 	</div>
@@ -28,6 +29,9 @@ export default {
 		changePixelSizing(size) {
 			this.$refs.beadGrid.style.gridTemplateColumns = `repeat(${this.width}, ${size}px)`;
 			this.$refs.beadGrid.style.gridTemplateRows = `repeat(${this.height}, ${size}px)`;
+		},
+		generateKey(pixel) {
+			return `${pixel.id}-${pixel.highlight ? 1 : 0}`;
 		}
 	},
 	mounted() {
@@ -61,5 +65,13 @@ export default {
 .bead-grid__cell {
 	width: 100%;
 	height: 100%;
+	box-sizing: border-box;
+	border: 1px solid transparent;
+}
+.bead-grid__cell--highlight {
+	border: 2px solid white;
+}
+.bead-grid__cell-code {
+	font-size: 8px;
 }
 </style>
