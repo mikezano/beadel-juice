@@ -46,7 +46,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .bead-grid-container {
 	width: calc(100vw - 28rem);
 	height: 90vh;
@@ -54,6 +54,8 @@ export default {
 	align-content: center;
 	align-items: center;
 	overflow: auto;
+	//padding: 1rem;
+	border: 0.1rem solid gray;
 }
 .bead-grid {
 	display: grid;
@@ -61,17 +63,22 @@ export default {
 	grid-template-rows: repeat(29, 40px);
 	grid-gap: 0;
 	margin: auto;
-}
-.bead-grid__cell {
-	width: 100%;
-	height: 100%;
-	box-sizing: border-box;
-	border: 1px solid transparent;
-}
-.bead-grid__cell--highlight {
-	border: 2px solid white;
-}
-.bead-grid__cell-code {
-	font-size: 8px;
+
+	&__cell {
+		width: 100%;
+		height: 100%;
+		box-sizing: border-box;
+		border: 1px solid transparent;
+	}
+	&__cell:hover {
+		transform: scale(1.1);
+		border: 2px solid white;
+	}
+	&__cell--highlight {
+		border: 2px solid white;
+	}
+	&__cell-code {
+		font-size: 8px;
+	}
 }
 </style>

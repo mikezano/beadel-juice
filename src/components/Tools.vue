@@ -1,9 +1,11 @@
 <template>
 	<div class="tools">
 		<input type="file" ref="file" @change="updateCanvasImage" />
-		<input type="range" min="10" max="100" value="40" step="10" @change="updateZoom" />
-		<canvas id="canvas" ref="imageCanvas"></canvas>
-		<div>Zoom: {{zoom}}</div>
+		<input type="range" min="10" max="50" value="30" step="1" @change="updateZoom" />
+		<div class="tools__canvas">
+			<canvas id="canvas" ref="imageCanvas"></canvas>
+		</div>
+		<div>Pixel Size: {{zoom}}px</div>
 	</div>
 </template>
 
@@ -42,9 +44,6 @@ export default {
 			};
 
 			reader.readAsDataURL(files[0]);
-
-			//this.file = this.$refs.file.files[0];
-			//console.log('file', this.file);
 		},
 
 		updateZoom(e) {
@@ -59,11 +58,13 @@ export default {
 			canvas.height = img.height;
 
 			var ctx = canvas.getContext("2d");
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			ctx.drawImage(img, 0, 0);
 
 			var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 			var data = imgData.data;
 
+			this.pixelData = []; //clear previous image
 			for (let i = 0; i < data.length; i += 4) {
 				const red = data[i];
 				const green = data[i + 1];
@@ -98,3 +99,20 @@ export default {
 	}
 };
 </script>
+
+<style lang="scss">
+.tools {
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+}
+
+.tools__canvas {
+	width: 100%;
+}
+#canvas {
+	border: 0.1rem dashed white;
+	width: 100%;
+	height: auto;
+}
+</style>

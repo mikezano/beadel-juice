@@ -82,7 +82,7 @@ export default {
 	&__tools,
 	&__colors,
 	&__view {
-		border: 1px solid gray;
+		//border: 1px solid gray;
 	}
 }
 </style>

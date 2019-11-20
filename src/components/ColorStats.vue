@@ -9,6 +9,7 @@
 				:data-name="pixel.name"
 				@mouseover="highlightPixels"
 			>
+				<div class="deets__pixel-color" :style="bgColor(pixel)">*</div>
 				<div class="deets__pixel-name">{{pixel.name}}</div>
 				<div class="deets__pixel-count">{{pixel.count}}</div>
 			</li>
@@ -30,6 +31,9 @@ export default {
 
 			console.log(e.currentTarget.dataset.name);
 			this.$emit("on-highlight-pixels", e.currentTarget.dataset.name);
+		},
+		bgColor(pixel) {
+			return { backgroundColor: pixel.hex };
 		}
 	},
 	watch: {
