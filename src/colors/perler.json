@@ -390,5 +390,82 @@
 		"rgb": "60,97,79",
 		"hex": "#3C614F",
 		"brand": "PERLER"
+	},
+	{
+		"code": "???",
+		"name": "Sherbert",
+		"rgb": "225,238,125",
+		"hex": "#E1EE7D",
+		"brand": "PERLER"
+	},
+	{
+		"code": "???",
+		"name": "Fern",
+		"rgb": "125,151,48",
+		"hex": "#7B9730",
+		"brand": "PERLER"
+	},
+	{
+		"code": "???",
+		"name": "Olive",
+		"rgb": "115,117,62",
+		"hex": "#72763E",
+		"brand": "PERLER"
+	},
+	{
+		"code": "P???",
+		"name": "Mist",
+		"rgb": "156,185,199",
+		"hex": "#9CB9C7",
+		"brand": "PERLER"
+	},
+	{
+		"code": "???",
+		"name": "Sky",
+		"rgb": "84,205,227",
+		"hex": "#54CDE3",
+		"brand": "PERLER"
+	},
+	{
+		"code": "???",
+		"name": "Lagoon",
+		"rgb": "0,171,178",
+		"hex": "#00ABB2",
+		"brand": "PERLER"
+	},
+	{
+		"code": "???",
+		"name": "Apricot",
+		"rgb": "255,169,103",
+		"hex": "#FFA967",
+		"brand": "PERLER"
+	},
+	{
+		"code": "???",
+		"name": "Orchid",
+		"rgb": "181,108,153",
+		"hex": "#B56C99",
+		"brand": "PERLER"
+	},
+	{
+		"code": "???",
+		"name": "Spice",
+		"rgb": "227,92,68",
+		"hex": "#E35C44",
+		"brand": "PERLER"
+	},
+	{
+		"code": "???",
+		"name": "Tomato",
+		"rgb": "234,66,66",
+		"hex": "#EA4241",
+		"brand": "PERLER"
+	},
+	{
+		"code": "???",
+		"name": "Teal",
+		"rgb": "54,141,151",
+		"hex": "#368D97",
+		"brand": "PERLER"
 	}
 ]

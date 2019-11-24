@@ -14,10 +14,13 @@
 				<span class="bead-grid__cell-code">{{pixel.code}}</span>
 			</div>
 		</div>
+		<BeadColorSelector />
 	</div>
 </template>
 
 <script>
+import BeadColorSelector from "./BeadColorSelector.vue";
+
 export default {
 	props: ["pixelData", "width", "height", "zoom"],
 	methods: {
@@ -33,6 +36,10 @@ export default {
 		generateKey(pixel) {
 			return `${pixel.id}-${pixel.highlight ? 1 : 0}`;
 		}
+		// showAlternatives(e) {
+		// 	const cell = e.target;
+		// 	const backgroundColor = cell.style.backgroundColor;
+		// }
 	},
 	mounted() {
 		this.changePixelSizing(40);
@@ -42,12 +49,16 @@ export default {
 			console.log("zoom: ", this.zoom, oldVal, newVal);
 			this.changePixelSizing(newVal);
 		}
+	},
+	components: {
+		BeadColorSelector
 	}
 };
 </script>
 
 <style lang="scss">
 .bead-grid-container {
+	position: relative;
 	width: calc(100vw - 28rem);
 	height: 90vh;
 	display: flex;
@@ -55,7 +66,9 @@ export default {
 	align-items: center;
 	overflow: auto;
 	//padding: 1rem;
-	border: 0.1rem solid gray;
+	border: 0.1rem solid black;
+	background-color: #888;
+	box-shadow: inset 0 0 1rem #000;
 }
 .bead-grid {
 	display: grid;
@@ -68,7 +81,7 @@ export default {
 		width: 100%;
 		height: 100%;
 		box-sizing: border-box;
-		border: 1px solid transparent;
+		border: 1px solid black;
 	}
 	&__cell:hover {
 		transform: scale(1.1);

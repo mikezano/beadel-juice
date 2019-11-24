@@ -2,15 +2,16 @@ const perler = require("../colors/perler.json");
 
 const perlerColors = {};
 
+//contains just the name and hex value
 perler.forEach(p => {
 	perlerColors[p.name.replace(" ", "")] = p.hex;
 });
 
 const nearestPerlerColor = require("nearest-human-color").from(perlerColors);
-
 const chroma = require("chroma-js");
 
-const nearestPerlerByHex = hexColor => {
+//The Euclidian
+const nearestPerlerByHex_Euclidian = hexColor => {
 	const hex = nearestPerlerColor(hexColor).value;
 	return exactPerlerByHex(hex);
 };
@@ -19,6 +20,7 @@ const nearestPerlerByHex_Chroma = hexColor => {
 	let minDistance = 1000000;
 	let nearestPerler = null;
 	perler.forEach(p => {
+		//if p is in list, skip
 		const currentDistance = chroma.distance(p.hex, hexColor);
 
 		if (currentDistance < minDistance) {
@@ -30,6 +32,19 @@ const nearestPerlerByHex_Chroma = hexColor => {
 	return nearestPerler;
 };
 
+const nearestNcolorsByHex_Chroma = (hexColor, n) => {
+	let collection = [];
+	let nextHex = hexColor;
+	for (var i = 0; i < n; i++) {
+		const closestPerler = nearestPerlerByHex_Chroma(nextHex);
+		collection.push(closestPerler);
+		nextHex = closestPerler.hex;
+	}
+	debugger;
+	return collection;
+};
+
+//Get the exact perler from the list
 const exactPerlerByHex = hexColor => {
 	return perler.filter(p => p.hex === hexColor)[0];
 };
@@ -89,9 +104,11 @@ const rgbToHex = (r, g, b) => {
 };
 
 export {
+	perler,
 	exactPerlerByHex,
-	nearestPerlerByHex,
+	nearestPerlerByHex_Euclidian as nearestPerlerByHex,
 	rgbToHSL,
 	rgbToHex,
-	nearestPerlerByHex_Chroma
+	nearestPerlerByHex_Chroma,
+	nearestNcolorsByHex_Chroma
 };
