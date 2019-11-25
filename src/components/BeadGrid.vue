@@ -3,9 +3,9 @@
 		<div class="bead-grid" ref="beadGrid" @click="showColorSelector">
 			<div
 				class="bead-grid__cell"
+				v-for="pixel in pixelData"
 				:class="{'bead-grid__cell--highlight': pixel.highlight === true}"
 				:data-id="pixel.id"
-				v-for="pixel in pixelData"
 				:key="generateKey(pixel)"
 				:style="hslColor(pixel.closestHex)"
 				:title="
@@ -51,14 +51,20 @@ export default {
 			return `${pixel.id}-${pixel.highlight ? 1 : 0}`;
 		},
 		changeColor(bead) {
-			console.log("Received bead:", bead);
-
 			const replacement = this.perlerToReplace;
-			this.pixelData.forEach(p => {
+			const newPixelData = this.pixelData.map(p => {
 				if (p.hex === replacement.hex) {
-					p = { ...bead };
+					p = {
+						...replacement,
+						...bead,
+						id: Math.random().toString(),
+						closestHex: bead.hex
+					};
 				}
+				return p;
 			});
+			this.pixelData = newPixelData;
+			//
 		}
 		// showAlternatives(e) {
 		// 	const cell = e.target;

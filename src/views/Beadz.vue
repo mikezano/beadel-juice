@@ -52,7 +52,6 @@ export default {
 					p.key = `${p.id}-${p.highlight ? 1 : 0}`;
 				}
 			});
-			console.log(this.pixelData);
 		}
 	},
 	computed: {
