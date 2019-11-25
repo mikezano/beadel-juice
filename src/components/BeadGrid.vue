@@ -1,9 +1,10 @@
 <template>
 	<div class="bead-grid-container">
-		<div class="bead-grid" ref="beadGrid">
+		<div class="bead-grid" ref="beadGrid" @click="showColorSelector">
 			<div
 				class="bead-grid__cell"
 				:class="{'bead-grid__cell--highlight': pixel.highlight === true}"
+				:data-id="pixel.id"
 				v-for="pixel in pixelData"
 				:key="generateKey(pixel)"
 				:style="hslColor(pixel.closestHex)"
@@ -14,7 +15,7 @@
 				<span class="bead-grid__cell-code">{{pixel.code}}</span>
 			</div>
 		</div>
-		<BeadColorSelector />
+		<BeadColorSelector @on-color-select="changeColor" v-if="isShowingColorSelector" />
 	</div>
 </template>
 
@@ -23,7 +24,20 @@ import BeadColorSelector from "./BeadColorSelector.vue";
 
 export default {
 	props: ["pixelData", "width", "height", "zoom"],
+	data() {
+		return {
+			isShowingColorSelector: false,
+			perlerToReplace: null
+		};
+	},
 	methods: {
+		showColorSelector(e) {
+			const { id } = e.target.dataset;
+			this.perlerToReplace = this.pixelData.filter(
+				f => f.id.toString() == id.toString()
+			)[0];
+			this.isShowingColorSelector = true;
+		},
 		hslColor(pixel) {
 			return {
 				backgroundColor: pixel
@@ -35,6 +49,16 @@ export default {
 		},
 		generateKey(pixel) {
 			return `${pixel.id}-${pixel.highlight ? 1 : 0}`;
+		},
+		changeColor(bead) {
+			console.log("Received bead:", bead);
+
+			const replacement = this.perlerToReplace;
+			this.pixelData.forEach(p => {
+				if (p.hex === replacement.hex) {
+					p = { ...bead };
+				}
+			});
 		}
 		// showAlternatives(e) {
 		// 	const cell = e.target;

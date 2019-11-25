@@ -2,7 +2,7 @@
 	<div class="bcs" draggable="true" @mousedown="dragStart" ref="bcs">
 		<h3 class="bcs__title">Color Switch</h3>
 		<ul class="bcs__list">
-			<li class="bcs__item" v-for="bead in beads" :key="bead.id">
+			<li class="bcs__item" v-for="bead in beads" :key="bead.id" @click="onColorSelect(bead)">
 				<div class="bcs__item-color" :style="{backgroundColor: bead.hex}"></div>
 				<div class="bcs__item-name">{{bead.name}}</div>
 			</li>
@@ -15,42 +15,42 @@ import { perler } from "../models/colorCounter";
 export default {
 	props: ["gridPosition"],
 	data() {
-		return { beads: perler, position: { x: 0, y: 0, elX: 0, elY: 0 } };
+		return {
+			beads: perler,
+			dragStartPos: { x: 0, y: 0 },
+			containerRect: null
+		};
 	},
 	mounted() {
 		const rect = this.$refs.bcs.parentNode.getBoundingClientRect();
-		this.position.x = rect.x;
-		this.position.y = rect.y;
+		this.containerRect = rect;
 	},
 	methods: {
 		dragStart(e) {
-			//e.preventDefault();
+			const rect = this.$refs.bcs.getBoundingClientRect();
+			this.dragStartPos.x = e.clientX - rect.x;
+			this.dragStartPos.y = e.clientY - rect.y;
 			document.onmousemove = this.dragSelector;
 			document.onmouseup = this.dragEnd;
-			const rect = this.$refs.bcs.getBoundingClientRect();
-			const rectParent = this.$refs.bcs.parentNode.getBoundingClientRect();
-			console.log("Rect:", rect);
-			console.log("Rect Parent:", rectParent);
-			const mousePos = { x: e.clientX, y: e.clientY };
-			this.position.elX = mousePos.x - rect.x;
-			this.position.elY = mousePos.y - rect.y;
 		},
 		dragSelector(e) {
 			e.preventDefault();
-			console.log(`x:${e.clientX}, y:${e.clientY}`);
 
 			this.$refs.bcs.style.top = `${e.clientY -
-				this.position.y -
-				this.position.elY}px`;
+				this.containerRect.y -
+				this.dragStartPos.y}px`;
 			this.$refs.bcs.style.left = `${e.clientX -
-				this.position.x -
-				this.position.elX}px`;
+				this.containerRect.x -
+				this.dragStartPos.x}px`;
 		},
 		dragEnd(e) {
-			debugger;
 			e.preventDefault();
 			document.onmousemove = null;
 			document.onmouseup = null;
+		},
+		onColorSelect(bead) {
+			console.log(bead);
+			this.$emit("on-color-select", bead);
 		}
 	}
 };
@@ -77,6 +77,10 @@ export default {
 	&__item {
 		display: flex;
 		padding: 0.2rem;
+	}
+	&__item:hover {
+		background-color: #333;
+		cursor: pointer;
 	}
 	&__item-color {
 		width: 1rem;
