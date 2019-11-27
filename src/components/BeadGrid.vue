@@ -4,7 +4,9 @@
 			<div
 				class="bead-grid__cell"
 				v-for="pixel in pixelData"
-				:class="{'bead-grid__cell--highlight': pixel.highlight === true}"
+				:class="{
+					'bead-grid__cell--highlight': pixel.highlight === true
+				}"
 				:data-id="pixel.id"
 				:key="generateKey(pixel)"
 				:style="hslColor(pixel.closestHex)"
@@ -12,18 +14,22 @@
 					`${pixel.code} - ${pixel.name}\nclosest: ${pixel.closestHex}\nhex: ${pixel.hex}\nrgb: ${pixel.rgb}`
 				"
 			>
-				<span class="bead-grid__cell-code">{{pixel.code}}</span>
+				<span class="bead-grid__cell-code">{{ pixel.code }}</span>
 			</div>
 		</div>
-		<BeadColorSelector @on-color-select="changeColor" v-if="isShowingColorSelector" />
+		<BeadColorSelector
+			@on-color-select="changeColor"
+			v-if="isShowingColorSelector"
+		/>
 	</div>
 </template>
 
 <script>
 import BeadColorSelector from "./BeadColorSelector.vue";
+import { mapState, mapMutations } from "vuex";
 
 export default {
-	props: ["pixelData", "width", "height", "zoom"],
+	props: ["width", "height", "zoom"],
 	data() {
 		return {
 			isShowingColorSelector: false,
@@ -31,6 +37,7 @@ export default {
 		};
 	},
 	methods: {
+		...mapMutations(["updatePixelData"]),
 		showColorSelector(e) {
 			const { id } = e.target.dataset;
 			this.perlerToReplace = this.pixelData.filter(
@@ -63,13 +70,17 @@ export default {
 				}
 				return p;
 			});
-			this.pixelData = newPixelData;
+			//this.pixelData = newPixelData;
+			this.$store.commit("updatePixelData", newPixelData);
 			//
 		}
 		// showAlternatives(e) {
 		// 	const cell = e.target;
 		// 	const backgroundColor = cell.style.backgroundColor;
 		// }
+	},
+	computed: {
+		...mapState(["pixelData"])
 	},
 	mounted() {
 		this.changePixelSizing(40);

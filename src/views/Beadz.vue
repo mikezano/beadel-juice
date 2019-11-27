@@ -1,11 +1,13 @@
 <template>
 	<div class="beadz">
 		<section class="beadz__tools">
-			<Tools @on-pixels-generated="pixelsGenerated" @on-update-zoom="zoomUpdate" />
+			<Tools
+				@on-pixels-generated="pixelsGenerated"
+				@on-update-zoom="zoomUpdate"
+			/>
 		</section>
 		<section class="beadz__view">
 			<BeadGrid
-				v-bind:pixelData="pixelData"
 				:width="canvasWidth"
 				:height="canvasHeight"
 				:zoom="zoom"
@@ -13,7 +15,7 @@
 			/>
 		</section>
 		<section class="beadz__colors">
-			<ColorStats :pixelData="pixelData" @on-highlight-pixels="highlightPixels" />
+			<ColorStats @on-highlight-pixels="highlightPixels" />
 		</section>
 	</div>
 </template>
@@ -22,10 +24,11 @@
 import Tools from "../components/Tools.vue";
 import BeadGrid from "../components/BeadGrid.vue";
 import ColorStats from "../components/ColorStats.vue";
+import { mapState } from "vuex";
 export default {
 	data() {
 		return {
-			pixelData: [],
+			//pixelData: [],
 			canvasHeight: 0,
 			canvasWidth: 0,
 			zoom: 0
@@ -37,6 +40,7 @@ export default {
 		ColorStats
 	},
 	methods: {
+		//...mapMutations(['updatePixelData']),
 		pixelsGenerated(pixelData, width, height) {
 			this.pixelData = pixelData;
 			this.canvasWidth = width;
@@ -55,6 +59,7 @@ export default {
 		}
 	},
 	computed: {
+		...mapState(["pixelData"]),
 		pixelsAreAvailable() {
 			return this.pixelData.length > 0;
 		}

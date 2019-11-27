@@ -10,16 +10,16 @@
 				@mouseover="highlightPixels"
 			>
 				<div class="deets__pixel-color" :style="bgColor(pixel)">*</div>
-				<div class="deets__pixel-name">{{pixel.name}}</div>
-				<div class="deets__pixel-count">{{pixel.count}}</div>
+				<div class="deets__pixel-name">{{ pixel.name }}</div>
+				<div class="deets__pixel-count">{{ pixel.count }}</div>
 			</li>
 		</ul>
 	</div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-	props: ["pixelData"],
 	data() {
 		return {
 			mappedPixels: []
@@ -35,6 +35,9 @@ export default {
 		bgColor(pixel) {
 			return { backgroundColor: pixel.hex };
 		}
+	},
+	computed: {
+		...mapState(["pixelData"])
 	},
 	watch: {
 		pixelData(newPixelData) {

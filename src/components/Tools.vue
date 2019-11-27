@@ -1,11 +1,18 @@
 <template>
 	<div class="tools">
 		<input type="file" ref="file" @change="updateCanvasImage" />
-		<input type="range" min="10" max="50" value="30" step="1" @change="updateZoom" />
+		<input
+			type="range"
+			min="10"
+			max="50"
+			value="30"
+			step="1"
+			@change="updateZoom"
+		/>
 		<div class="tools__canvas">
 			<canvas id="canvas" ref="imageCanvas"></canvas>
 		</div>
-		<div>Pixel Size: {{zoom}}px</div>
+		<div>Pixel Size: {{ zoom }}px</div>
 	</div>
 </template>
 
@@ -17,6 +24,7 @@ import {
 	//nearestPerlerByHex
 	nearestPerlerByHex_Chroma
 } from "../models/colorCounter";
+import { mapMutations } from "vuex";
 
 export default {
 	data() {
@@ -30,6 +38,7 @@ export default {
 	// 	console.log("functions exist:", nearestPerlerByHex);
 	// },
 	methods: {
+		...mapMutations(["updatePixelData"]),
 		updateCanvasImage(e) {
 			const self = this;
 			const files = e.target.files;
@@ -88,13 +97,8 @@ export default {
 					code: closest.code
 				});
 			}
-
-			this.$emit(
-				"on-pixels-generated",
-				this.pixelData,
-				canvas.width,
-				canvas.height
-			);
+			this.$store.commit("updatePixelData", this.pixelData);
+			//this.setPixelData(this.pixelData);
 		}
 	}
 };
