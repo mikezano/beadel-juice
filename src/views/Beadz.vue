@@ -61,7 +61,7 @@ export default {
 	computed: {
 		...mapState(["pixelData"]),
 		pixelsAreAvailable() {
-			return this.pixelData.length > 0;
+			return this.pixelData && this.pixelData.length > 0;
 		}
 	}
 };

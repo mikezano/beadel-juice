@@ -58,7 +58,8 @@ export default {
 		updateZoom(e) {
 			console.log(e);
 			this.zoom = e.target.value;
-			this.$emit("on-update-zoom", this.zoom);
+			//this.$emit("on-update-zoom", this.zoom);
+			this.$store.commit("updateZoom", this.zoom);
 		},
 
 		drawCanvasImage(img) {
@@ -97,7 +98,11 @@ export default {
 					code: closest.code
 				});
 			}
-			this.$store.commit("updatePixelData", this.pixelData);
+			this.$store.commit("updatePixelData", {
+				pixelData: this.pixelData,
+				width: canvas.width,
+				height: canvas.height
+			});
 			//this.setPixelData(this.pixelData);
 		}
 	}

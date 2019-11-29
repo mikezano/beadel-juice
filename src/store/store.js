@@ -6,7 +6,10 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
 	state: {
 		counter: 2,
-		pixelData: []
+		pixelData: [],
+		width: 0,
+		height: 0,
+		zoom: 0
 	},
 	getters: {
 		tripleCounter: state => {
@@ -28,8 +31,14 @@ export const store = new Vuex.Store({
 		decrement: state => {
 			state.counter--;
 		},
-		updatePixelData: (state, newPixelData) => {
-			state.pixelData = newPixelData;
+		updatePixelData: (state, payload) => {
+			state.pixelData = payload.pixelData;
+
+			state.width = payload.width || state.width;
+			state.height = payload.height || state.height;
+		},
+		updateZoom: (state, newZoom) => {
+			state.zoom = newZoom;
 		}
 	},
 	actions: {

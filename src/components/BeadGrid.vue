@@ -29,7 +29,6 @@ import BeadColorSelector from "./BeadColorSelector.vue";
 import { mapState, mapMutations } from "vuex";
 
 export default {
-	props: ["width", "height", "zoom"],
 	data() {
 		return {
 			isShowingColorSelector: false,
@@ -70,24 +69,21 @@ export default {
 				}
 				return p;
 			});
-			//this.pixelData = newPixelData;
-			this.$store.commit("updatePixelData", newPixelData);
-			//
+			this.$store.commit("updatePixelData", {
+				pixelData: newPixelData,
+				width: null,
+				height: null
+			});
 		}
-		// showAlternatives(e) {
-		// 	const cell = e.target;
-		// 	const backgroundColor = cell.style.backgroundColor;
-		// }
 	},
 	computed: {
-		...mapState(["pixelData"])
+		...mapState(["pixelData", "width", "height", "zoom"])
 	},
 	mounted() {
 		this.changePixelSizing(40);
 	},
 	watch: {
-		zoom(newVal, oldVal) {
-			console.log("zoom: ", this.zoom, oldVal, newVal);
+		zoom(newVal) {
 			this.changePixelSizing(newVal);
 		}
 	},

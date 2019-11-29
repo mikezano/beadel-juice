@@ -9,7 +9,7 @@
 				:data-name="pixel.name"
 				@mouseover="highlightPixels"
 			>
-				<div class="deets__pixel-color" :style="bgColor(pixel)">*</div>
+				<div class="deets__pixel-color" :style="bgColor(pixel)"></div>
 				<div class="deets__pixel-name">{{ pixel.name }}</div>
 				<div class="deets__pixel-count">{{ pixel.count }}</div>
 			</li>
@@ -41,6 +41,8 @@ export default {
 	},
 	watch: {
 		pixelData(newPixelData) {
+			if (!newPixelData) return;
+
 			this.mappedPixels = [];
 			const _this = this;
 			newPixelData.forEach(pixel => {
@@ -82,5 +84,10 @@ export default {
 	width: 10rem;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+.deets__pixel-color {
+	width: 1rem;
+	height: 1rem;
+	border-radius: 50%;
 }
 </style>
