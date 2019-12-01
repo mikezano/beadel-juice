@@ -1,5 +1,6 @@
 <template>
 	<div class="bcs" draggable="true" @mousedown="dragStart" ref="bcs">
+		<i class="bcs__close" @click="close">X</i>
 		<h3 class="bcs__title">Color Switch</h3>
 		<ul class="bcs__list">
 			<li class="bcs__item" v-for="bead in beads" :key="bead.id" @click="onColorSelect(bead)">
@@ -26,6 +27,9 @@ export default {
 		this.containerRect = rect;
 	},
 	methods: {
+		close() {
+			this.$emit("on-color-selector-close");
+		},
 		dragStart(e) {
 			const rect = this.$refs.bcs.getBoundingClientRect();
 			this.dragStartPos.x = e.clientX - rect.x;
@@ -49,7 +53,6 @@ export default {
 			document.onmouseup = null;
 		},
 		onColorSelect(bead) {
-			console.log(bead);
 			this.$emit("on-color-select", bead);
 		}
 	}
@@ -63,6 +66,16 @@ export default {
 	background-color: #333;
 	//border: 0.2rem solid #222;
 	box-shadow: 0 0 2rem black;
+	&__close {
+		position: absolute;
+		right: 0.5rem;
+		top: 0.8rem;
+		color: red;
+	}
+	&__close:hover {
+		transform: scale(1.3);
+		cursor: pointer;
+	}
 	&__title {
 		padding: 0;
 		margin: 0.8rem 0;

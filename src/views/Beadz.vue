@@ -1,18 +1,10 @@
 <template>
 	<div class="beadz">
 		<section class="beadz__tools">
-			<Tools
-				@on-pixels-generated="pixelsGenerated"
-				@on-update-zoom="zoomUpdate"
-			/>
+			<Tools @on-pixels-generated="pixelsGenerated" @on-update-zoom="zoomUpdate" />
 		</section>
 		<section class="beadz__view">
-			<BeadGrid
-				:width="canvasWidth"
-				:height="canvasHeight"
-				:zoom="zoom"
-				v-if="pixelsAreAvailable"
-			/>
+			<BeadGrid :width="canvasWidth" :height="canvasHeight" :zoom="zoom" />
 		</section>
 		<section class="beadz__colors">
 			<ColorStats @on-highlight-pixels="highlightPixels" />
@@ -50,19 +42,23 @@ export default {
 			this.zoom = zoom;
 		},
 		highlightPixels(name) {
-			this.pixelData.forEach(p => {
-				p.highlight = p.name === name;
-				if (p.highlight === true) {
-					p.key = `${p.id}-${p.highlight ? 1 : 0}`;
-				}
-			});
+			if (name === null) {
+				this.pixelData.forEach(p => {
+					p.highlight = false;
+					p.key = `${p.id}-0`;
+				});
+			} else {
+				this.pixelData.forEach(p => {
+					p.highlight = p.name === name;
+					if (p.highlight === true) {
+						p.key = `${p.id}-${p.highlight ? 1 : 0}`;
+					}
+				});
+			}
 		}
 	},
 	computed: {
-		...mapState(["pixelData"]),
-		pixelsAreAvailable() {
-			return this.pixelData && this.pixelData.length > 0;
-		}
+		...mapState(["pixelData"])
 	}
 };
 </script>

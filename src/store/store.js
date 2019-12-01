@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
 		pixelData: [],
 		width: 0,
 		height: 0,
-		zoom: 0
+		zoom: 40
 	},
 	getters: {
 		tripleCounter: state => {

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h2>Pixel Deets</h2>
-		<ul class="deets">
+		<ul class="deets" @mouseleave="highlightPixels">
 			<li
 				class="deets__pixel"
 				v-for="pixel in mappedPixels"
@@ -28,9 +28,12 @@ export default {
 	methods: {
 		highlightPixels(e) {
 			//https://github.com/vuejs/vue/issues/2236
+			const highlight = e.currentTarget.classList.contains(".deets")
+				? null
+				: e.currentTarget.dataset.name;
 
 			console.log(e.currentTarget.dataset.name);
-			this.$emit("on-highlight-pixels", e.currentTarget.dataset.name);
+			this.$emit("on-highlight-pixels", highlight);
 		},
 		bgColor(pixel) {
 			return { backgroundColor: pixel.hex };
@@ -75,6 +78,7 @@ export default {
 .deets__pixel {
 	display: flex;
 	padding: 0.2rem 0;
+	margin: 0;
 }
 .deets__pixel:hover {
 	background-color: #555;

@@ -1,6 +1,6 @@
 <template>
 	<div class="bead-grid-container">
-		<div class="bead-grid" ref="beadGrid" @click="showColorSelector">
+		<div class="bead-grid" ref="beadGrid" @click="showColorSelector" v-if="pixelsAreAvailable">
 			<div
 				class="bead-grid__cell"
 				v-for="pixel in pixelData"
@@ -19,6 +19,7 @@
 		</div>
 		<BeadColorSelector
 			@on-color-select="changeColor"
+			@on-color-selector-close="closeColorSelector"
 			v-if="isShowingColorSelector"
 		/>
 	</div>
@@ -38,7 +39,8 @@ export default {
 	methods: {
 		...mapMutations(["updatePixelData"]),
 		showColorSelector(e) {
-			const { id } = e.target.dataset;
+			const cell = e.target.closest(".bead-grid__cell");
+			const { id } = cell.dataset;
 			this.perlerToReplace = this.pixelData.filter(
 				f => f.id.toString() == id.toString()
 			)[0];
@@ -56,6 +58,9 @@ export default {
 		generateKey(pixel) {
 			return `${pixel.id}-${pixel.highlight ? 1 : 0}`;
 		},
+		closeColorSelector() {
+			this.isShowingColorSelector = false;
+		},
 		changeColor(bead) {
 			const replacement = this.perlerToReplace;
 			const newPixelData = this.pixelData.map(p => {
@@ -64,7 +69,8 @@ export default {
 						...replacement,
 						...bead,
 						id: Math.random().toString(),
-						closestHex: bead.hex
+						closestHex: bead.hex,
+						hex: replacement.hex
 					};
 				}
 				return p;
@@ -77,14 +83,20 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["pixelData", "width", "height", "zoom"])
-	},
-	mounted() {
-		this.changePixelSizing(40);
+		...mapState(["pixelData", "width", "height", "zoom"]),
+		pixelsAreAvailable() {
+			return this.pixelData && this.pixelData.length > 0;
+		}
 	},
 	watch: {
 		zoom(newVal) {
 			this.changePixelSizing(newVal);
+		},
+		pixelData() {
+			//TODO: how to remove timeout but still have $refs.beadGrid exist
+			setTimeout(() => {
+				this.changePixelSizing(this.zoom);
+			}, 100);
 		}
 	},
 	components: {
