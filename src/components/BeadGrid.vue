@@ -1,5 +1,5 @@
 <template>
-	<div class="bead-grid-container">
+	<div class="bead-grid-container" ref="beadGridContainer">
 		<div class="bead-grid" ref="beadGrid" @click="showColorSelector" v-if="pixelsAreAvailable">
 			<div
 				class="bead-grid__cell"
@@ -14,7 +14,7 @@
 					`${pixel.code} - ${pixel.name}\nclosest: ${pixel.closestHex}\nhex: ${pixel.hex}\nrgb: ${pixel.rgb}`
 				"
 			>
-				<span class="bead-grid__cell-code">{{ pixel.code }}</span>
+				<!-- <span class="bead-grid__cell-code">{{ pixel.code }}</span> -->
 			</div>
 		</div>
 		<BeadColorSelector
@@ -37,7 +37,7 @@ export default {
 		};
 	},
 	methods: {
-		...mapMutations(["updatePixelData"]),
+		...mapMutations(["updatePixelData", "updateZoom"]),
 		showColorSelector(e) {
 			const cell = e.target.closest(".bead-grid__cell");
 			const { id } = cell.dataset;
@@ -93,9 +93,17 @@ export default {
 			this.changePixelSizing(newVal);
 		},
 		pixelData() {
+			// debugger;
+			// if (oldVal === null) {
+
+			// }
 			//TODO: how to remove timeout but still have $refs.beadGrid exist
+			const _this = this;
 			setTimeout(() => {
-				this.changePixelSizing(this.zoom);
+				const beadGridWidth =
+					_this.$refs.beadGridContainer.clientWidth / _this.width;
+				_this.$store.commit("updateZoom", beadGridWidth);
+				_this.changePixelSizing(this.zoom);
 			}, 100);
 		}
 	},

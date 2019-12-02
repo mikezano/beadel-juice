@@ -1,16 +1,12 @@
 <template>
 	<div class="tools">
-		<input type="file" ref="file" @change="updateCanvasImage" />
-		<input
-			type="range"
-			min="10"
-			max="50"
-			value="30"
-			step="1"
-			@change="updateZoom"
-		/>
+		<button class="tools__select-file" @click="updateCanvasImageButton">Select File</button>
+		<input type="file" ref="file" @change="updateCanvasImage" v-show="false" />
+		<label>Zoom:</label>
+		<input type="range" min="10" max="50" value="30" step="1" @change="updateZoom" />
 		<div class="tools__canvas">
 			<canvas id="canvas" ref="imageCanvas"></canvas>
+			<img class="tools__img-ref" ref="imgRef" />
 		</div>
 		<div>Pixel Size: {{ zoom }}px</div>
 	</div>
@@ -39,6 +35,9 @@ export default {
 	// },
 	methods: {
 		...mapMutations(["updatePixelData"]),
+		updateCanvasImageButton() {
+			this.$refs.file.click();
+		},
 		updateCanvasImage(e) {
 			const self = this;
 			const files = e.target.files;
@@ -50,6 +49,7 @@ export default {
 					self.drawCanvasImage(img);
 				};
 				img.src = event.target.result;
+				this.$refs.imgRef.src = event.target.result;
 			};
 
 			reader.readAsDataURL(files[0]);
@@ -69,6 +69,7 @@ export default {
 
 			var ctx = canvas.getContext("2d");
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.imageSmoothingEnabled = false;
 			ctx.drawImage(img, 0, 0);
 
 			var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -114,14 +115,34 @@ export default {
 	display: flex;
 	flex-direction: column;
 	padding: 1rem;
+	&__canvas,
+	&__img-ref {
+		width: 100%;
+	}
+	&__img-ref {
+		image-rendering: pixelated;
+	}
+	&__select-file {
+		$orange: orange;
+		border: 0.1rem solid $orange;
+		background-color: lighten(orange, 10%);
+		border-radius: 0.2rem;
+		padding: 1rem;
+		font-size: 1.5rem;
+		font-weight: bold;
+		color: white;
+		box-shadow: 0 0.4rem darken($orange, 10%);
+		margin-bottom: 1.5rem;
+	}
 }
 
 .tools__canvas {
 	width: 100%;
+	border: 0.1rem dashed white;
 }
 #canvas {
-	border: 0.1rem dashed white;
 	width: 100%;
 	height: auto;
+	display: none;
 }
 </style>
