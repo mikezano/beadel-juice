@@ -9,7 +9,8 @@ export const store = new Vuex.Store({
 		pixelData: [],
 		width: 0,
 		height: 0,
-		zoom: 40
+		zoom: 40,
+		base64: null
 	},
 	getters: {
 		tripleCounter: state => {
@@ -39,6 +40,9 @@ export const store = new Vuex.Store({
 		},
 		updateZoom: (state, newZoom) => {
 			state.zoom = newZoom;
+		},
+		updateBase64: (state, payload) => {
+			state.base64 = payload;
 		}
 	},
 	actions: {

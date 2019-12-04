@@ -14,11 +14,14 @@
 				<div class="deets__pixel-count">{{ pixel.count }}</div>
 			</li>
 		</ul>
+		<button @click="exportStats">Export</button>
 	</div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import jsPDF from "jspdf";
+
 export default {
 	data() {
 		return {
@@ -37,10 +40,16 @@ export default {
 		},
 		bgColor(pixel) {
 			return { backgroundColor: pixel.hex };
+		},
+		exportStats() {
+			const doc = new jsPDF();
+			doc.text("Hello world!", 10, 10);
+			doc.addImage(this.base64, "PNG", 10, 10, 58, 58);
+			doc.save("a4.pdf");
 		}
 	},
 	computed: {
-		...mapState(["pixelData"])
+		...mapState(["pixelData", "base64"])
 	},
 	watch: {
 		pixelData(newPixelData) {

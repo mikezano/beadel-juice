@@ -1,9 +1,24 @@
 <template>
 	<div class="tools">
-		<button class="tools__select-file" @click="updateCanvasImageButton">Select File</button>
-		<input type="file" ref="file" @change="updateCanvasImage" v-show="false" />
+		<button class="tools__select-file" @click="updateCanvasImageButton">
+			Select File
+		</button>
+		<input
+			type="file"
+			ref="file"
+			@change="updateCanvasImage"
+			v-show="false"
+			git
+		/>
 		<label>Zoom:</label>
-		<input type="range" min="10" max="50" value="30" step="1" @change="updateZoom" />
+		<input
+			type="range"
+			min="10"
+			max="50"
+			value="30"
+			step="1"
+			@change="updateZoom"
+		/>
 		<div class="tools__canvas">
 			<canvas id="canvas" ref="imageCanvas"></canvas>
 			<img class="tools__img-ref" ref="imgRef" />
@@ -34,7 +49,7 @@ export default {
 	// 	console.log("functions exist:", nearestPerlerByHex);
 	// },
 	methods: {
-		...mapMutations(["updatePixelData"]),
+		...mapMutations(["updatePixelData", "updateBase64"]),
 		updateCanvasImageButton() {
 			this.$refs.file.click();
 		},
@@ -49,6 +64,8 @@ export default {
 					self.drawCanvasImage(img);
 				};
 				img.src = event.target.result;
+				debugger;
+				self.$store.commit("updateBase64", img.src);
 				this.$refs.imgRef.src = event.target.result;
 			};
 
