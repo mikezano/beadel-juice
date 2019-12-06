@@ -41,10 +41,31 @@ export default {
 		bgColor(pixel) {
 			return { backgroundColor: pixel.hex };
 		},
+		drawCircle(doc, rgb, y) {
+			console.log(rgb);
+			doc.setLineWidth(0.2);
+			doc.setDrawColor(0);
+			doc.setFillColor(rgb.r, rgb.g, rgb.b);
+			doc.circle(120, y, 4, "FD");
+		},
 		exportStats() {
+			console.log(this.mappedPixels);
 			const doc = new jsPDF();
 			doc.text("Hello world!", 10, 10);
 			doc.addImage(this.base64, "PNG", 10, 10, 58, 58);
+
+			let y = 15;
+			this.mappedPixels.forEach(p => {
+				const rgbSplit = p.rgb.split(",");
+				const rgb = {
+					r: parseInt(rgbSplit[0]),
+					g: parseInt(rgbSplit[1]),
+					b: parseInt(rgbSplit[2])
+				};
+				this.drawCircle(doc, rgb, y);
+				doc.text(`${p.code}-${p.name} : ${p.count}`, 130, y + 2);
+				y += 9;
+			});
 			doc.save("a4.pdf");
 		}
 	},
