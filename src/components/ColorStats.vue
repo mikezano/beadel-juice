@@ -46,23 +46,24 @@ export default {
 			var canvas = this.$refs.finalResult;
 			canvas.width = this.width;
 			canvas.height = this.height;
-
+			debugger;
 			var ctx = canvas.getContext("2d");
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			ctx.imageSmoothingEnabled = false;
 
 			let buffer = [];
-			for (var y = 0; y < this.height; y++) {
-				for (var x = 0; x < this.width; x++) {
-					var pos = (y * this.width + x) * 4; // position in buffer based on x and y
-					buffer[pos] = 9; // some R value [0, 255]
-					buffer[pos + 1] = 9; // some G value
-					buffer[pos + 2] = 9; // some B value
-					buffer[pos + 3] = 255; // set alpha channel
-				}
+			for (let i = 0; i < this.pixelData.length; i++) {
+				const _i = i * 4;
+				const rgb = this.pixelData[i].rgb.split(",");
+				buffer[_i] = parseInt(rgb[0]);
+				buffer[_i + 1] = parseInt(rgb[1]);
+				buffer[_i + 2] = parseInt(rgb[2]);
+				buffer[_i + 3] = 255;
 			}
 
-			//ctx.drawImage(img, 0, 0);
+			let iData = ctx.createImageData(canvas.width, canvas.height);
+			iData.data.set(buffer);
+			ctx.putImageData(iData, 0, 0);
 		},
 		drawCircle(doc, rgb, y) {
 			console.log(rgb);
@@ -97,6 +98,7 @@ export default {
 			} = this.scaledImageForPdf();
 			doc.addImage(this.base64, "PNG", 10, 10, imgWidth, imgHeight);
 
+			this.drawFinalResult();
 			let y = 15;
 			this.mappedPixels.forEach(p => {
 				const rgbSplit = p.rgb.split(",");
@@ -137,6 +139,7 @@ export default {
 			});
 
 			this.mappedPixels.sort((a, b) => (a.count > b.count ? -1 : 1));
+			this.drawFinalResult();
 		}
 	}
 };
