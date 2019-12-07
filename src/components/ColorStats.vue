@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<h2>Pixel Deets</h2>
+		<canvas ref="finalResult" />
 		<ul class="deets" @mouseleave="highlightPixels">
 			<li
 				class="deets__pixel"
@@ -41,6 +42,28 @@ export default {
 		bgColor(pixel) {
 			return { backgroundColor: pixel.hex };
 		},
+		drawFinalResult() {
+			var canvas = this.$refs.finalResult;
+			canvas.width = this.width;
+			canvas.height = this.height;
+
+			var ctx = canvas.getContext("2d");
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.imageSmoothingEnabled = false;
+
+			let buffer = [];
+			for (var y = 0; y < this.height; y++) {
+				for (var x = 0; x < this.width; x++) {
+					var pos = (y * this.width + x) * 4; // position in buffer based on x and y
+					buffer[pos] = 9; // some R value [0, 255]
+					buffer[pos + 1] = 9; // some G value
+					buffer[pos + 2] = 9; // some B value
+					buffer[pos + 3] = 255; // set alpha channel
+				}
+			}
+
+			//ctx.drawImage(img, 0, 0);
+		},
 		drawCircle(doc, rgb, y) {
 			console.log(rgb);
 			doc.setLineWidth(0.2);
@@ -48,11 +71,31 @@ export default {
 			doc.setFillColor(rgb.r, rgb.g, rgb.b);
 			doc.circle(120, y, 4, "FD");
 		},
+		scaledImageForPdf() {
+			const pdfImgWidth = 500;
+			const pdfImgHeight = 200;
+			const excessWidth = this.width / pdfImgWidth;
+			const excessHeight = this.height / pdfImgHeight;
+
+			let scaler = 1;
+			if (excessWidth > 1.0 || excessHeight > 1.0) {
+				scaler =
+					excessWidth > excessHeight ? excessWidth : excessHeight;
+			}
+			const actualWidth = this.width / scaler;
+			const actualHeight = this.height / scaler;
+			return { width: actualWidth, height: actualHeight };
+		},
 		exportStats() {
 			console.log(this.mappedPixels);
 			const doc = new jsPDF();
 			doc.text("Hello world!", 10, 10);
-			doc.addImage(this.base64, "PNG", 10, 10, 58, 58);
+
+			const {
+				width: imgWidth,
+				height: imgHeight
+			} = this.scaledImageForPdf();
+			doc.addImage(this.base64, "PNG", 10, 10, imgWidth, imgHeight);
 
 			let y = 15;
 			this.mappedPixels.forEach(p => {
@@ -70,7 +113,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["pixelData", "base64"])
+		...mapState(["pixelData", "base64", "width", "height"])
 	},
 	watch: {
 		pixelData(newPixelData) {
