@@ -71,7 +71,6 @@ export default {
 			var ctx = canvas.getContext("2d");
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			ctx.imageSmoothingEnabled = false;
-			debugger;
 			ctx.drawImage(img, 0, 0);
 
 			var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);

@@ -1,8 +1,9 @@
 <template>
-	<div>
+	<div class="deets">
 		<h2>Pixel Deets</h2>
-		<canvas ref="finalResult" />
-		<ul class="deets" @mouseleave="highlightPixels">
+		<img ref="finalResultImg" class="deets__image-result" />
+		<canvas ref="finalResult" class="deets__image-canvas" />
+		<ul class="deets__list" @mouseleave="highlightPixels">
 			<li
 				class="deets__pixel"
 				v-for="pixel in mappedPixels"
@@ -22,6 +23,7 @@
 <script>
 import { mapState } from "vuex";
 import jsPDF from "jspdf";
+import chroma from "chroma-js";
 
 export default {
 	data() {
@@ -46,7 +48,7 @@ export default {
 			var canvas = this.$refs.finalResult;
 			canvas.width = this.width;
 			canvas.height = this.height;
-			debugger;
+
 			var ctx = canvas.getContext("2d");
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			ctx.imageSmoothingEnabled = false;
@@ -54,26 +56,30 @@ export default {
 			let buffer = [];
 			for (let i = 0; i < this.pixelData.length; i++) {
 				const _i = i * 4;
-				const rgb = this.pixelData[i].rgb.split(",");
-				buffer[_i] = parseInt(rgb[0]);
-				buffer[_i + 1] = parseInt(rgb[1]);
-				buffer[_i + 2] = parseInt(rgb[2]);
+				const rgb = chroma(this.pixelData[i].closestHex).rgba();
+				buffer[_i] = rgb[0];
+				buffer[_i + 1] = rgb[1];
+				buffer[_i + 2] = rgb[2];
 				buffer[_i + 3] = 255;
 			}
 
 			let iData = ctx.createImageData(canvas.width, canvas.height);
 			iData.data.set(buffer);
 			ctx.putImageData(iData, 0, 0);
+
+			const base64 = canvas.toDataURL();
+			console.log(base64);
+			this.$refs.finalResultImg.src = base64;
 		},
-		drawCircle(doc, rgb, y) {
+		drawCircle(doc, rgb, x, y) {
 			console.log(rgb);
 			doc.setLineWidth(0.2);
 			doc.setDrawColor(0);
 			doc.setFillColor(rgb.r, rgb.g, rgb.b);
-			doc.circle(120, y, 4, "FD");
+			doc.circle(x, y, 4, "FD");
 		},
 		scaledImageForPdf() {
-			const pdfImgWidth = 500;
+			const pdfImgWidth = 250;
 			const pdfImgHeight = 200;
 			const excessWidth = this.width / pdfImgWidth;
 			const excessHeight = this.height / pdfImgHeight;
@@ -98,17 +104,27 @@ export default {
 			} = this.scaledImageForPdf();
 			doc.addImage(this.base64, "PNG", 10, 10, imgWidth, imgHeight);
 
+			doc.addImage(
+				this.$refs.finalResult.toDataURL(),
+				100,
+				10,
+				imgWidth,
+				imgHeight
+			);
+
 			this.drawFinalResult();
 			let y = 15;
-			this.mappedPixels.forEach(p => {
+			this.mappedPixels.forEach((p, i) => {
 				const rgbSplit = p.rgb.split(",");
 				const rgb = {
 					r: parseInt(rgbSplit[0]),
 					g: parseInt(rgbSplit[1]),
 					b: parseInt(rgbSplit[2])
 				};
-				this.drawCircle(doc, rgb, y);
-				doc.text(`${p.code}-${p.name} : ${p.count}`, 130, y + 2);
+				const x = i % 2 === 1 ? 10 : 130;
+				this.drawCircle(doc, rgb, x, y);
+
+				doc.text(`${p.code}-${p.name} : ${p.count}`, x, y + imgHeight);
 				y += 9;
 			});
 			doc.save("a4.pdf");
@@ -144,30 +160,39 @@ export default {
 	}
 };
 </script>
-<style>
+<style lang="scss">
 .deets {
-	list-style-type: none;
-	text-align: left;
-	padding: 0.2rem 0.4rem;
-	margin: 0;
-}
-.deets__pixel {
-	display: flex;
-	padding: 0.2rem 0;
-	margin: 0;
-}
-.deets__pixel:hover {
-	background-color: #555;
-	cursor: pointer;
-}
-.deets__pixel-name {
-	width: 10rem;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-.deets__pixel-color {
-	width: 1rem;
-	height: 1rem;
-	border-radius: 50%;
+	&__list {
+		list-style-type: none;
+		text-align: left;
+		padding: 0.2rem 0.4rem;
+		margin: 0;
+	}
+	&__image-result {
+		image-rendering: pixelated;
+		width: 90%;
+	}
+	&__image-canvas {
+		display: none;
+	}
+	&__pixel {
+		display: flex;
+		padding: 0.2rem 0;
+		margin: 0;
+	}
+	&__pixel:hover {
+		background-color: #555;
+		cursor: pointer;
+	}
+	&__pixel-name {
+		width: 10rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	&__pixel-color {
+		width: 1rem;
+		height: 1rem;
+		border-radius: 50%;
+	}
 }
 </style>
