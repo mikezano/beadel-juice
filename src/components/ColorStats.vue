@@ -22,8 +22,8 @@
 
 <script>
 import { mapState } from "vuex";
-import jsPDF from "jspdf";
 import chroma from "chroma-js";
+import BeadExport from "../models/BeadExport";
 
 export default {
 	data() {
@@ -94,40 +94,49 @@ export default {
 			return { width: actualWidth, height: actualHeight };
 		},
 		exportStats() {
-			console.log(this.mappedPixels);
-			const doc = new jsPDF();
-			doc.text("Hello world!", 10, 10);
-
-			const {
-				width: imgWidth,
-				height: imgHeight
-			} = this.scaledImageForPdf();
-			doc.addImage(this.base64, "PNG", 10, 10, imgWidth, imgHeight);
-
-			doc.addImage(
-				this.$refs.finalResult.toDataURL(),
-				100,
-				10,
-				imgWidth,
-				imgHeight
+			const base64PerlerImage = this.$refs.finalResult.toDataURL();
+			const beadExport = new BeadExport(
+				this.base64,
+				base64PerlerImage,
+				this.width,
+				this.height,
+				this.mappedPixels
 			);
+			beadExport.export();
 
-			this.drawFinalResult();
-			let y = 15;
-			this.mappedPixels.forEach((p, i) => {
-				const rgbSplit = p.rgb.split(",");
-				const rgb = {
-					r: parseInt(rgbSplit[0]),
-					g: parseInt(rgbSplit[1]),
-					b: parseInt(rgbSplit[2])
-				};
-				const x = i % 2 === 1 ? 10 : 130;
-				this.drawCircle(doc, rgb, x, y);
+			// console.log(this.mappedPixels);
+			// const doc = new jsPDF();
+			// doc.text("Hello world!", 10, 10);
 
-				doc.text(`${p.code}-${p.name} : ${p.count}`, x, y + imgHeight);
-				y += 9;
-			});
-			doc.save("a4.pdf");
+			// const {
+			// 	width: imgWidth,
+			// 	height: imgHeight
+			// } = this.scaledImageForPdf();
+			// doc.addImage(this.base64, "PNG", 10, 10, imgWidth, imgHeight);
+
+			// doc.addImage(
+			// 	this.$refs.finalResult.toDataURL(),
+			// 	100,
+			// 	10,
+			// 	imgWidth,
+			// 	imgHeight
+			// );
+
+			// let y = 15;
+			// this.mappedPixels.forEach((p, i) => {
+			// 	const rgbSplit = p.rgb.split(",");
+			// 	const rgb = {
+			// 		r: parseInt(rgbSplit[0]),
+			// 		g: parseInt(rgbSplit[1]),
+			// 		b: parseInt(rgbSplit[2])
+			// 	};
+			// 	const x = i % 2 === 1 ? 10 : 130;
+			// 	this.drawCircle(doc, rgb, x, y);
+
+			// 	doc.text(`${p.code}-${p.name} : ${p.count}`, x, y + imgHeight);
+			// 	y += 9;
+			// });
+			//doc.save("a4.pdf");
 		}
 	},
 	computed: {
