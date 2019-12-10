@@ -3,7 +3,8 @@
 		<h2>Pixel Deets</h2>
 		<img ref="finalResultImg" class="deets__image-result" />
 		<canvas ref="finalResult" class="deets__image-canvas" />
-		<ul class="deets__list" @mouseleave="highlightPixels">
+		<button @click="exportStats">Export</button>
+		<ul class="deets__list" @mouseleave="highlightPixels" ref="colorStats">
 			<li
 				class="deets__pixel"
 				v-for="pixel in mappedPixels"
@@ -16,7 +17,6 @@
 				<div class="deets__pixel-count">{{ pixel.count }}</div>
 			</li>
 		</ul>
-		<button @click="exportStats">Export</button>
 	</div>
 </template>
 
@@ -71,28 +71,6 @@ export default {
 			console.log(base64);
 			this.$refs.finalResultImg.src = base64;
 		},
-		drawCircle(doc, rgb, x, y) {
-			console.log(rgb);
-			doc.setLineWidth(0.2);
-			doc.setDrawColor(0);
-			doc.setFillColor(rgb.r, rgb.g, rgb.b);
-			doc.circle(x, y, 4, "FD");
-		},
-		scaledImageForPdf() {
-			const pdfImgWidth = 250;
-			const pdfImgHeight = 200;
-			const excessWidth = this.width / pdfImgWidth;
-			const excessHeight = this.height / pdfImgHeight;
-
-			let scaler = 1;
-			if (excessWidth > 1.0 || excessHeight > 1.0) {
-				scaler =
-					excessWidth > excessHeight ? excessWidth : excessHeight;
-			}
-			const actualWidth = this.width / scaler;
-			const actualHeight = this.height / scaler;
-			return { width: actualWidth, height: actualHeight };
-		},
 		exportStats() {
 			const base64PerlerImage = this.$refs.finalResult.toDataURL();
 			const beadExport = new BeadExport(
@@ -100,43 +78,10 @@ export default {
 				base64PerlerImage,
 				this.width,
 				this.height,
-				this.mappedPixels
+				this.mappedPixels,
+				this.$refs.colorStats
 			);
 			beadExport.export();
-
-			// console.log(this.mappedPixels);
-			// const doc = new jsPDF();
-			// doc.text("Hello world!", 10, 10);
-
-			// const {
-			// 	width: imgWidth,
-			// 	height: imgHeight
-			// } = this.scaledImageForPdf();
-			// doc.addImage(this.base64, "PNG", 10, 10, imgWidth, imgHeight);
-
-			// doc.addImage(
-			// 	this.$refs.finalResult.toDataURL(),
-			// 	100,
-			// 	10,
-			// 	imgWidth,
-			// 	imgHeight
-			// );
-
-			// let y = 15;
-			// this.mappedPixels.forEach((p, i) => {
-			// 	const rgbSplit = p.rgb.split(",");
-			// 	const rgb = {
-			// 		r: parseInt(rgbSplit[0]),
-			// 		g: parseInt(rgbSplit[1]),
-			// 		b: parseInt(rgbSplit[2])
-			// 	};
-			// 	const x = i % 2 === 1 ? 10 : 130;
-			// 	this.drawCircle(doc, rgb, x, y);
-
-			// 	doc.text(`${p.code}-${p.name} : ${p.count}`, x, y + imgHeight);
-			// 	y += 9;
-			// });
-			//doc.save("a4.pdf");
 		}
 	},
 	computed: {
@@ -176,6 +121,8 @@ export default {
 		text-align: left;
 		padding: 0.2rem 0.4rem;
 		margin: 0;
+		height: 50vh;
+		overflow: auto;
 	}
 	&__image-result {
 		image-rendering: pixelated;

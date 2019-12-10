@@ -10,23 +10,27 @@ export default class BeadExport {
 	mappedPixels = null;
 	imageWidth = null;
 	imageHeight = null;
+	colorStatsElement = null;
 
 	constructor(
 		base64OriginalImage,
 		base64PerlerImage,
 		imageWidth,
 		imageHeight,
-		mappedPixels
+		mappedPixels,
+		colorStatsElement
 	) {
 		this.base64OriginalImage = base64OriginalImage;
 		this.base64PerlerImage = base64PerlerImage;
 		this.mappedPixels = mappedPixels;
 		this.imageWidth = imageWidth;
 		this.imageHeight = imageHeight;
+		this.colorStatsElement = colorStatsElement;
 		this.doc = new jsPDF();
 	}
 
 	export() {
+		this.doc.setFontSize(10);
 		const {
 			width: scaledWidth,
 			height: scaledHeight
@@ -51,7 +55,7 @@ export default class BeadExport {
 		);
 
 		this.writeMappedPixels();
-
+		//this.doc.fromHTML(this.colorStatsElement, 0, 200);
 		this.doc.save("a4.pdf");
 	}
 
@@ -84,8 +88,8 @@ export default class BeadExport {
 
 			this.doc.text(
 				`${p.code}-${p.name} : ${p.count}`,
-				x + 5,
-				y + this.imageHeight
+				x + 3,
+				y + this.imageHeight + 1.5
 			);
 			y += 4;
 		});
