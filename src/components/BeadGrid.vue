@@ -36,6 +36,13 @@ export default {
 			perlerToReplace: null
 		};
 	},
+	created() {
+		document.addEventListener("keydown", e => {
+			if (e.ctrlKey && e.key === "z") {
+				alert("undo");
+			}
+		});
+	},
 	methods: {
 		...mapMutations(["updatePixelData", "updateZoom"]),
 		showColorSelector(e) {
