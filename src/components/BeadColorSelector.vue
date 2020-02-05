@@ -23,6 +23,7 @@ export default {
 		};
 	},
 	mounted() {
+		console.log(this.gridPosition);
 		const rect = this.$refs.bcs.parentNode.getBoundingClientRect();
 		this.containerRect = rect;
 	},

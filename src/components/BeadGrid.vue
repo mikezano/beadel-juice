@@ -21,6 +21,7 @@
 			@on-color-select="changeColor"
 			@on-color-selector-close="closeColorSelector"
 			v-if="isShowingColorSelector"
+			:gridPosition="nextGridPosition"
 		/>
 	</div>
 </template>
@@ -33,7 +34,8 @@ export default {
 	data() {
 		return {
 			isShowingColorSelector: false,
-			perlerToReplace: null
+			perlerToReplace: null,
+			nextGridPosition: null
 		};
 	},
 	created() {
@@ -47,6 +49,7 @@ export default {
 		...mapMutations(["updatePixelData", "updateZoom"]),
 		showColorSelector(e) {
 			const cell = e.target.closest(".bead-grid__cell");
+			this.nextGridPosition = cell.getBoundingClientRect();
 			const { id } = cell.dataset;
 			this.perlerToReplace = this.pixelData.filter(
 				f => f.id.toString() == id.toString()
