@@ -1,5 +1,6 @@
 <template>
 	<div id="app">
+		<h1 class="title">Beadel Juice</h1>
 		<router-view />
 	</div>
 </template>
@@ -13,6 +14,7 @@ body {
 .title {
 	padding: 0;
 	margin: 0;
+	font-size: 3rem;
 }
 #app {
 	font-family: "Avenir", Helvetica, Arial, sans-serif;

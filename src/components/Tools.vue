@@ -2,13 +2,25 @@
 	<div class="tools">
 		<button class="tools__select-file" @click="updateCanvasImageButton">Select File</button>
 		<input type="file" ref="file" @change="updateCanvasImage" v-show="false" git />
-		<label>Zoom:</label>
-		<input type="range" min="10" max="50" value="30" step="1" @change="updateZoom" />
-		<div class="tools__canvas">
-			<canvas id="canvas" ref="imageCanvas"></canvas>
-			<img class="tools__img-ref" ref="imgRef" />
-		</div>
-		<div>Pixel Size: {{ zoom }}px</div>
+		<template v-if="showControls">
+			<div>Pixel Size: {{ zoom }}px</div>
+			<div class="tools__canvas">
+				<canvas id="canvas" ref="imageCanvas"></canvas>
+				<img class="tools__img-ref" ref="imgRef" />
+			</div>
+
+			<input
+				class="tools__range"
+				type="range"
+				min="10"
+				max="50"
+				value="30"
+				step="1"
+				@change="updateZoom"
+			/>
+			<label>Zoom:</label>
+			<button class="tools__clear" @click="clearButton">Clear</button>
+		</template>
 	</div>
 </template>
 
@@ -27,7 +39,8 @@ export default {
 		return {
 			file: null,
 			pixelData: [],
-			zoom: 0
+			zoom: 0,
+			showControls: false
 		};
 	},
 	// created() {
@@ -39,6 +52,7 @@ export default {
 			this.$refs.file.click();
 		},
 		updateCanvasImage(e) {
+			this.showControls = true;
 			const self = this;
 			const files = e.target.files;
 			const reader = new FileReader();
@@ -54,6 +68,13 @@ export default {
 			};
 
 			reader.readAsDataURL(files[0]);
+		},
+
+		clearButton() {
+			this.pixelData = [];
+			this.zoom = 0;
+			this.showControls = false;
+			this.file = null;
 		},
 
 		updateZoom(e) {
@@ -113,6 +134,8 @@ export default {
 
 <style lang="scss">
 .tools {
+	$orange: orange;
+	$blue: lightblue;
 	display: flex;
 	flex-direction: column;
 	padding: 1rem;
@@ -123,17 +146,28 @@ export default {
 	&__img-ref {
 		image-rendering: pixelated;
 	}
-	&__select-file {
-		$orange: orange;
-		border: 0.1rem solid $orange;
-		background-color: lighten(orange, 10%);
+	&__range {
+		margin: 1rem 0;
+	}
+
+	&__select-file,
+	&__clear {
 		border-radius: 0.2rem;
 		padding: 1rem;
 		font-size: 1.5rem;
 		font-weight: bold;
 		color: white;
-		box-shadow: 0 0.4rem darken($orange, 10%);
 		margin-bottom: 1.5rem;
+	}
+	&__select-file {
+		border: 0.1rem solid $orange;
+		background-color: lighten($orange, 10%);
+		box-shadow: 0 0.4rem darken($orange, 10%);
+	}
+	&__clear {
+		border: 0.1rem solid $blue;
+		background-color: lighten($blue, 10%);
+		box-shadow: 0 0.4rem darken($blue, 10%);
 	}
 }
 
