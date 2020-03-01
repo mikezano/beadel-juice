@@ -1,5 +1,6 @@
 <template>
 	<div class="bead-grid-container" ref="beadGridContainer">
+		<button @click="undo">Undo</button>
 		<div class="bead-grid" ref="beadGrid" @click="showColorSelector" v-if="pixelsAreAvailable">
 			<div
 				class="bead-grid__cell"
@@ -35,7 +36,8 @@ export default {
 		return {
 			isShowingColorSelector: false,
 			perlerToReplace: null,
-			nextGridPosition: null
+			nextGridPosition: null,
+			replacements: []
 		};
 	},
 	created() {
@@ -72,15 +74,60 @@ export default {
 			this.isShowingColorSelector = false;
 		},
 		changeColor(bead) {
+			debugger;
 			const replacement = this.perlerToReplace;
-			const newPixelData = this.pixelData.map(p => {
+
+			let replacementIndexes = [];
+			console.log(this.replacements);
+			const newPixelData = this.pixelData.map((p, i) => {
 				if (p.hex === replacement.hex) {
+					replacementIndexes.push(i);
 					p = {
 						...replacement,
 						...bead,
 						id: Math.random().toString(),
 						closestHex: bead.hex,
 						hex: replacement.hex
+					};
+				}
+				return p;
+			});
+
+			this.replacements.push({
+				beadToReplaceWith: bead,
+				beadToReplace: replacement,
+				indexes: replacementIndexes
+			});
+
+			this.$store.commit("updatePixelData", {
+				pixelData: newPixelData,
+				width: null,
+				height: null
+			});
+		},
+		undo() {
+			const lastChange = this.replacements.pop();
+			lastChange.indexes.forEach(i => {
+				this.pixelData[i] = {
+					...lastChange.beadToReplace,
+					id: Math.random().toString()
+				};
+			});
+			const newPixelData = this.pixelData.map((p, i) => {
+				// if (p.closestHex === lastChange.beadToReplaceWith.hex) {
+				// 	p = {
+				// 		...lastChange.beadToReplace,
+				// 		id: Math.random().toString()
+				// 		//closestHex: bead.hex,
+				// 		//hex: replacement.hex
+				// 	};
+				// }
+				if (lastChange.indexes.includes(i)) {
+					p = {
+						...lastChange.beadToReplace,
+						id: Math.random().toString()
+						//closestHex: bead.hex,
+						//hex: replacement.hex
 					};
 				}
 				return p;
