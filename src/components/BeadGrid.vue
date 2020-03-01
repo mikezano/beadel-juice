@@ -1,6 +1,5 @@
 <template>
 	<div class="bead-grid-container" ref="beadGridContainer">
-		<button @click="undo">Undo</button>
 		<div class="bead-grid" ref="beadGrid" @click="showColorSelector" v-if="pixelsAreAvailable">
 			<div
 				class="bead-grid__cell"
@@ -42,8 +41,8 @@ export default {
 	},
 	created() {
 		document.addEventListener("keydown", e => {
-			if (e.ctrlKey && e.key === "z") {
-				alert("undo");
+			if (e.ctrlKey && e.key === "z" && this.replacements.length > 0) {
+				this.undo();
 			}
 		});
 	},
@@ -74,7 +73,6 @@ export default {
 			this.isShowingColorSelector = false;
 		},
 		changeColor(bead) {
-			debugger;
 			const replacement = this.perlerToReplace;
 
 			let replacementIndexes = [];
