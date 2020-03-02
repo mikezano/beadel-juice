@@ -148,9 +148,9 @@ export default {
 			this.changePixelSizing(newVal);
 		},
 		pixelData() {
+			// console.log(newVal, oldVal);
 			// debugger;
 			// if (oldVal === null) {
-
 			// }
 			//TODO: how to remove timeout but still have $refs.beadGrid exist
 			const _this = this;
@@ -158,6 +158,7 @@ export default {
 				const beadGridWidth =
 					_this.$refs.beadGridContainer.clientWidth / _this.width;
 				_this.$store.commit("updateZoom", beadGridWidth);
+
 				_this.changePixelSizing(this.zoom);
 			}, 100);
 		}
@@ -184,8 +185,8 @@ export default {
 }
 .bead-grid {
 	display: grid;
-	grid-template-columns: repeat(29, 40px);
-	grid-template-rows: repeat(29, 40px);
+	grid-template-columns: repeat(29, 0);
+	grid-template-rows: repeat(29, 0);
 	grid-gap: 0;
 	margin: auto;
 
