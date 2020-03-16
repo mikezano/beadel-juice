@@ -10,7 +10,8 @@ export const store = new Vuex.Store({
 		width: 0,
 		height: 0,
 		zoom: 40,
-		base64: null
+		base64: null,
+		areMatchesHighlighted: true
 	},
 	getters: {
 		tripleCounter: state => {
@@ -23,7 +24,8 @@ export const store = new Vuex.Store({
 		getComponents: state => () => {
 			return state.registry.components;
 		},
-		getPixelData: state => state.pixelData
+		getPixelData: state => state.pixelData,
+		getAreMatchesHighlighted: state => state.areMatchesHighlighted
 	},
 	mutations: {
 		increment: (state, num) => {
@@ -43,6 +45,9 @@ export const store = new Vuex.Store({
 		},
 		updateBase64: (state, payload) => {
 			state.base64 = payload;
+		},
+		updateAreMatchesHighlighted: (state, payload) => {
+			state.areMatchesHighlighted = payload;
 		}
 	},
 	actions: {

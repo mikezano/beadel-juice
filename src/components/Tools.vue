@@ -18,7 +18,13 @@
 				step="1"
 				@change="updateZoom"
 			/>
-			<label>Zoom:</label>
+			<label>Zoom</label>
+
+			<div>
+				<label>Highlight Matches</label>
+				<input type="checkbox" @change="updateAreMatchesHighlighted" checked />
+			</div>
+
 			<button class="tools__clear" @click="clearButton">Clear</button>
 		</template>
 	</div>
@@ -47,7 +53,11 @@ export default {
 	// 	console.log("functions exist:", nearestPerlerByHex);
 	// },
 	methods: {
-		...mapMutations(["updatePixelData", "updateBase64"]),
+		...mapMutations([
+			"updatePixelData",
+			"updateBase64",
+			"updateAreMatchesHighlighted"
+		]),
 		updateCanvasImageButton() {
 			this.$refs.file.click();
 		},
@@ -68,6 +78,11 @@ export default {
 			};
 
 			reader.readAsDataURL(files[0]);
+		},
+		updateAreMatchesHighlighted(e) {
+			const isChecked = e.target.checked;
+			console.log("checked:", isChecked);
+			this.$store.commit("updateAreMatchesHighlighted", isChecked);
 		},
 
 		clearButton() {

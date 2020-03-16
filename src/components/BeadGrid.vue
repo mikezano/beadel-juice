@@ -1,6 +1,13 @@
 <template>
 	<div class="bead-grid-container" ref="beadGridContainer">
-		<div class="bead-grid" ref="beadGrid" @click="showColorSelector" v-if="pixelsAreAvailable">
+		<div
+			class="bead-grid"
+			ref="beadGrid"
+			@click="showColorSelector"
+			v-if="pixelsAreAvailable"
+			@mouseover="hoverCell"
+			@mouseleave="clearHighlighting"
+		>
 			<div
 				class="bead-grid__cell"
 				v-for="pixel in pixelData"
@@ -56,6 +63,23 @@ export default {
 				f => f.id.toString() == id.toString()
 			)[0];
 			this.isShowingColorSelector = true;
+		},
+		hoverCell(e) {
+			console.log(this.areMatchesHighlighted);
+			if (this.areMatchesHighlighted === false) return;
+			const cell = e.target;
+			const { id } = cell.dataset;
+			console.log(this.pixelData[0]);
+			const perlerCell = this.pixelData.filter(
+				f => f.id.toString() === id.toString()
+			)[0];
+			console.log(perlerCell);
+			this.pixelData.forEach(p => {
+				p.highlight = p.name === perlerCell.name;
+				if (p.highlight === true) {
+					p.key = `${p.id}-${p.highlight ? 1 : 0}`;
+				}
+			});
 		},
 		hslColor(pixel) {
 			return {
@@ -135,10 +159,21 @@ export default {
 				width: null,
 				height: null
 			});
+		},
+		clearHighlighting() {
+			this.pixelData.forEach(p => {
+				p.highlight = false;
+			});
 		}
 	},
 	computed: {
-		...mapState(["pixelData", "width", "height", "zoom"]),
+		...mapState([
+			"pixelData",
+			"width",
+			"height",
+			"zoom",
+			"areMatchesHighlighted"
+		]),
 		pixelsAreAvailable() {
 			return this.pixelData && this.pixelData.length > 0;
 		}
@@ -161,6 +196,11 @@ export default {
 
 				_this.changePixelSizing(this.zoom);
 			}, 100);
+		},
+		areMatchesHighlighted(newVal) {
+			if (newVal === false) {
+				this.clearHighlighting();
+			}
 		}
 	},
 	components: {
@@ -201,7 +241,7 @@ export default {
 		border: 2px solid white;
 	}
 	&__cell--highlight {
-		border: 2px solid white;
+		border: 1px dotted white;
 	}
 	&__cell-code {
 		font-size: 8px;
