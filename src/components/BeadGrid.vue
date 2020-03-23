@@ -237,7 +237,7 @@ export default {
 		border: 1px solid black;
 	}
 	&__cell:hover {
-		transform: scale(1.1);
+		transform: scale(1);
 		border: 2px solid white;
 	}
 	&__cell--highlight {

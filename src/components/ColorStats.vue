@@ -116,12 +116,15 @@ export default {
 </script>
 <style lang="scss">
 .deets {
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
 	&__list {
 		list-style-type: none;
 		text-align: left;
 		padding: 0.2rem 0.4rem;
 		margin: 0;
-		height: 50vh;
+		flex: auto;
 		overflow: auto;
 	}
 	&__image-result {
