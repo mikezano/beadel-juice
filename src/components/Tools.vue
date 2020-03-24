@@ -3,12 +3,12 @@
 		<button class="tools__select-file" @click="updateCanvasImageButton">Select File</button>
 		<input type="file" ref="file" @change="updateCanvasImage" v-show="false" git />
 		<template v-if="showControls">
-			<div>Pixel Size: {{ zoom }}px</div>
+			<div>Original</div>
 			<div class="tools__canvas">
 				<canvas id="canvas" ref="imageCanvas"></canvas>
 				<img class="tools__img-ref" ref="imgRef" />
 			</div>
-
+			<div>Pixel Size: {{ zoom }}px</div>
 			<input
 				class="tools__range"
 				type="range"
@@ -153,7 +153,7 @@ export default {
 	$blue: lightblue;
 	display: flex;
 	flex-direction: column;
-	padding: 1rem;
+	padding: 0 1rem;
 	&__canvas,
 	&__img-ref {
 		width: 100%;

@@ -1,9 +1,11 @@
 <template>
 	<div class="deets">
-		<h2>Pixel Deets</h2>
-		<img ref="finalResultImg" class="deets__image-result" />
-		<canvas ref="finalResult" class="deets__image-canvas" />
-		<button @click="exportStats">Export</button>
+		<button class="deets__export" @click="exportStats">Export</button>
+		<div>Beaded</div>
+		<div class="deets__image">
+			<img ref="finalResultImg" class="deets__image-result" />
+			<canvas ref="finalResult" class="deets__image-canvas" />
+		</div>
 		<ul class="deets__list" @mouseleave="highlightPixels" ref="colorStats">
 			<li
 				class="deets__pixel"
@@ -118,7 +120,7 @@ export default {
 .deets {
 	display: flex;
 	flex-direction: column;
-	padding: 1rem;
+	padding: 0 1rem;
 	&__list {
 		list-style-type: none;
 		text-align: left;
@@ -127,12 +129,28 @@ export default {
 		flex: auto;
 		overflow: auto;
 	}
+	&__image {
+		width: 100%;
+		border: 0.1rem dashed white;
+	}
 	&__image-result {
 		image-rendering: pixelated;
-		width: 90%;
+		width: 100%;
 	}
 	&__image-canvas {
 		display: none;
+	}
+	&__export {
+		$orange: #0071c5;
+		border-radius: 0.2rem;
+		padding: 1rem;
+		font-size: 1.5rem;
+		font-weight: bold;
+		color: white;
+		margin-bottom: 1.5rem;
+		border: 0.1rem solid $orange;
+		background-color: lighten($orange, 10%);
+		box-shadow: 0 0.4rem darken($orange, 10%);
 	}
 	&__pixel {
 		display: flex;
