@@ -1,5 +1,6 @@
 <template>
 	<div class="bead-grid-container" ref="beadGridContainer">
+		<BeadTip :isShowing="isShowingBeadTip" :pixelData="currentCell" />
 		<div
 			class="bead-grid"
 			ref="beadGrid"
@@ -35,14 +36,18 @@
 
 <script>
 import BeadColorSelector from "./BeadColorSelector.vue";
+import BeadTip from "./BeadTip.vue";
 import { mapState, mapMutations } from "vuex";
 
 export default {
 	data() {
 		return {
 			isShowingColorSelector: false,
+			isShowingBeadTip: false,
+			currentCell: null,
 			perlerToReplace: null,
 			nextGridPosition: null,
+			toolTipDelay: null,
 			replacements: []
 		};
 	},
@@ -65,21 +70,33 @@ export default {
 			this.isShowingColorSelector = true;
 		},
 		hoverCell(e) {
-			console.log(this.areMatchesHighlighted);
+			debugger;
+			if (this.toolTipDelay) {
+				clearTimeout(this.toolTipDelay);
+				this.toolTipDelay = null;
+			} else {
+				this.toolTipDelay = setTimeout(() => {
+					debugger;
+					this.isShowingBeadTip = true;
+				}, 1000);
+			}
+			//this.isShowingBeadTip = true;
 			if (this.areMatchesHighlighted === false) return;
 			const cell = e.target;
 			const { id } = cell.dataset;
-			console.log(this.pixelData[0]);
+
 			const perlerCell = this.pixelData.filter(
 				f => f.id.toString() === id.toString()
 			)[0];
-			console.log(perlerCell);
+
 			this.pixelData.forEach(p => {
 				p.highlight = p.name === perlerCell.name;
 				if (p.highlight === true) {
 					p.key = `${p.id}-${p.highlight ? 1 : 0}`;
 				}
 			});
+
+			this.currentCell = perlerCell;
 		},
 		hslColor(pixel) {
 			return {
@@ -161,6 +178,9 @@ export default {
 			});
 		},
 		clearHighlighting() {
+			clearTimeout(this.toolTipDelay);
+			this.toolTipDelay = null;
+			this.isShowingBeadTip = false;
 			this.pixelData.forEach(p => {
 				p.highlight = false;
 			});
@@ -183,10 +203,6 @@ export default {
 			this.changePixelSizing(newVal);
 		},
 		pixelData() {
-			// console.log(newVal, oldVal);
-			// debugger;
-			// if (oldVal === null) {
-			// }
 			//TODO: how to remove timeout but still have $refs.beadGrid exist
 			const _this = this;
 			setTimeout(() => {
@@ -204,7 +220,8 @@ export default {
 		}
 	},
 	components: {
-		BeadColorSelector
+		BeadColorSelector,
+		BeadTip
 	}
 };
 </script>

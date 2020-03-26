@@ -70,7 +70,6 @@ export default {
 			ctx.putImageData(iData, 0, 0);
 
 			const base64 = canvas.toDataURL();
-			console.log(base64);
 			this.$refs.finalResultImg.src = base64;
 		},
 		exportStats() {
@@ -124,10 +123,11 @@ export default {
 	&__list {
 		list-style-type: none;
 		text-align: left;
-		padding: 0.2rem 0.4rem;
-		margin: 0;
+		padding: 0;
+		margin: 1rem 0;
 		flex: auto;
 		overflow: auto;
+		height: calc(100vh - 380px);
 	}
 	&__image {
 		width: 100%;
@@ -169,7 +169,6 @@ export default {
 	&__pixel-color {
 		width: 1rem;
 		height: 1rem;
-		border-radius: 50%;
 	}
 }
 </style>
