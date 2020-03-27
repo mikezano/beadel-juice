@@ -1,6 +1,10 @@
 <template>
 	<div class="bead-grid-container" ref="beadGridContainer">
-		<BeadTip :isShowing="isShowingBeadTip" :pixelData="currentCell" />
+		<BeadTip
+			:isShowing="isShowingBeadTip"
+			:pixelData="currentCell"
+			:coordinates="beadTipCoordinates"
+		/>
 		<div
 			class="bead-grid"
 			ref="beadGrid"
@@ -18,9 +22,6 @@
 				:data-id="pixel.id"
 				:key="generateKey(pixel)"
 				:style="hslColor(pixel.closestHex)"
-				:title="
-					`${pixel.code} - ${pixel.name}\nclosest: ${pixel.closestHex}\nhex: ${pixel.hex}\nrgb: ${pixel.rgb}`
-				"
 			>
 				<!-- <span class="bead-grid__cell-code">{{ pixel.code }}</span> -->
 			</div>
@@ -48,7 +49,8 @@ export default {
 			perlerToReplace: null,
 			nextGridPosition: null,
 			toolTipDelay: null,
-			replacements: []
+			replacements: [],
+			beadTipCoordinates: { x: 0, y: 0 }
 		};
 	},
 	created() {
@@ -69,18 +71,24 @@ export default {
 			)[0];
 			this.isShowingColorSelector = true;
 		},
-		hoverCell(e) {
-			debugger;
+		showToolTip(x, y) {
 			if (this.toolTipDelay) {
 				clearTimeout(this.toolTipDelay);
 				this.toolTipDelay = null;
-			} else {
-				this.toolTipDelay = setTimeout(() => {
-					debugger;
-					this.isShowingBeadTip = true;
-				}, 1000);
+				this.isShowingBeadTip = false;
 			}
-			//this.isShowingBeadTip = true;
+
+			const that = this;
+			this.toolTipDelay = setTimeout(() => {
+				that.isShowingBeadTip = true;
+				console.log("bead grid", this.$refs.beadGrid);
+				const rect = this.$refs.beadGrid.getBoundingClientRect();
+				this.beadTipCoordinates = { x, y, rect };
+			}, 1000);
+		},
+		hoverCell(e) {
+			console.log(e);
+			this.showToolTip(e.x, e.y);
 			if (this.areMatchesHighlighted === false) return;
 			const cell = e.target;
 			const { id } = cell.dataset;

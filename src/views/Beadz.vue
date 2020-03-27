@@ -69,7 +69,7 @@ export default {
 
 	&__tools,
 	&__colors {
-		width: 14rem;
+		width: 200px;
 	}
 
 	&__view {

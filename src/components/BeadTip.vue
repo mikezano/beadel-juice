@@ -1,5 +1,8 @@
 <template>
-	<div class="bead-tip">
+	<div
+		class="bead-tip"
+		:style="{left: `${coordinates.x - coordinates.rect.x}px`, top: `${coordinates.y - coordinates.rect.y}px`}"
+	>
 		<table v-if="isShowing">
 			<tr>
 				<td>Name</td>
@@ -10,14 +13,14 @@
 				<td>{{pixelData.code}}</td>
 			</tr>
 			<tr>
-				<td>Closest</td>
+				<td>Color</td>
 				<td :style="{backgroundColor: pixelData.closestHex}">
 					{{pixelData.closestHex}}
 					<span></span>
 				</td>
 			</tr>
 			<tr>
-				<td>Hex</td>
+				<td>Actual</td>
 				<td :style="{backgroundColor: pixelData.hex}">{{pixelData.hex}}</td>
 			</tr>
 			<tr>
@@ -30,10 +33,15 @@
 
 <script>
 export default {
-	props: ["isShowing", "pixelData"],
+	props: ["isShowing", "pixelData", "coordinates"],
 	created() {
-		console.log(this.isShowing);
-		console.log(this.pixelData);
+		//console.log(this.isShowing);
+		//console.log(this.pixelData);
+	},
+	watch: {
+		coordinates(newVal, oldVal) {
+			console.log(newVal, oldVal);
+		}
 	}
 };
 </script>
@@ -42,5 +50,10 @@ export default {
 .bead-tip {
 	position: absolute;
 	background-color: #333;
+	border: 2px solid black;
+	box-shadow: 0.5rem 0.5rem 1rem hsla(0, 0%, 0%, 0.8);
+	font-size: 0.8rem;
+	padding: 0.5rem;
+	text-align: left;
 }
 </style>
