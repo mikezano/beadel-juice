@@ -1,29 +1,18 @@
 <template>
-	<div
-		class="bead-tip"
-		:style="{left: `${coordinates.x - coordinates.rect.x}px`, top: `${coordinates.y - coordinates.rect.y}px`}"
-	>
+	<div class="bead-tip">
 		<table v-if="isShowing">
 			<tr>
-				<td>Name</td>
-				<td>{{pixelData.name}}</td>
-			</tr>
-			<tr>
-				<td>Code</td>
-				<td>{{pixelData.code}}</td>
-			</tr>
-			<tr>
+				<td>{{pixel.name}} - {{pixel.code}}</td>
+				<td class="bead-tip__spacer">|</td>
 				<td>Color</td>
-				<td :style="{backgroundColor: pixelData.closestHex}">
-					{{pixelData.closestHex}}
+				<td :style="{backgroundColor: pixel.closestHex}">
+					{{pixel.closestHex}}
 					<span></span>
 				</td>
-			</tr>
-			<tr>
+				<td class="bead-tip__spacer">|</td>
 				<td>Actual</td>
-				<td :style="{backgroundColor: pixelData.hex}">{{pixelData.hex}}</td>
-			</tr>
-			<tr>
+				<td :style="{backgroundColor: pixel.hex}">{{pixel.hex}}</td>
+				<td class="bead-tip__spacer">|</td>
 				<td>RGB</td>
 				<td>{colorRGB}</td>
 			</tr>
@@ -32,28 +21,41 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-	props: ["isShowing", "pixelData", "coordinates"],
-	created() {
-		//console.log(this.isShowing);
-		//console.log(this.pixelData);
+	//props: ["isShowing", "pixelData", "coordinates"],
+	data() {
+		return {
+			event: null,
+			pixel: null,
+			isShowing: false
+		};
 	},
 	watch: {
-		coordinates(newVal, oldVal) {
-			console.log(newVal, oldVal);
+		hoveredPixelData(newVal) {
+			this.isShowing = true;
+			this.event = newVal.event;
+			this.pixel = newVal.pixel;
 		}
+	},
+	computed: {
+		...mapState(["hoveredPixelData"])
 	}
 };
 </script>
 
 <style lang="scss" scoped>
 .bead-tip {
-	position: absolute;
-	background-color: #333;
-	border: 2px solid black;
-	box-shadow: 0.5rem 0.5rem 1rem hsla(0, 0%, 0%, 0.8);
+	//background-color: #333;
+	color: white;
+	//border: 2px solid black;
+	//box-shadow: 0.5rem 0.5rem 1rem hsla(0, 0%, 0%, 0.8);
 	font-size: 0.8rem;
-	padding: 0.5rem;
+	padding-top: 0.2rem;
 	text-align: left;
+	&__spacer {
+		padding: 0 0.5rem;
+		color: #666;
+	}
 }
 </style>

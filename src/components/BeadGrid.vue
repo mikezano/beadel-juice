@@ -1,10 +1,5 @@
 <template>
 	<div class="bead-grid-container" ref="beadGridContainer">
-		<BeadTip
-			:isShowing="isShowingBeadTip"
-			:pixelData="currentCell"
-			:coordinates="beadTipCoordinates"
-		/>
 		<div
 			class="bead-grid"
 			ref="beadGrid"
@@ -15,7 +10,7 @@
 		>
 			<div
 				class="bead-grid__cell"
-				v-for="pixel in pixelData"
+				v-for="pixel in pixelGridData"
 				:class="{
 					'bead-grid__cell--highlight': pixel.highlight === true
 				}"
@@ -37,7 +32,6 @@
 
 <script>
 import BeadColorSelector from "./BeadColorSelector.vue";
-import BeadTip from "./BeadTip.vue";
 import { mapState, mapMutations } from "vuex";
 
 export default {
@@ -45,7 +39,7 @@ export default {
 		return {
 			isShowingColorSelector: false,
 			isShowingBeadTip: false,
-			currentCell: null,
+			//currentCell: null,
 			perlerToReplace: null,
 			nextGridPosition: null,
 			toolTipDelay: null,
@@ -60,51 +54,54 @@ export default {
 			}
 		});
 	},
+	computed: {
+		...mapState([
+			"pixelGridData",
+			"width",
+			"height",
+			"zoom",
+			"areMatchesHighlighted"
+		]),
+		pixelsAreAvailable() {
+			return this.pixelGridData && this.pixelGridData.length > 0;
+		}
+	},
 	methods: {
-		...mapMutations(["updatePixelData", "updateZoom"]),
+		...mapMutations([
+			"updatePixelGridData",
+			"updateZoom",
+			"updateHoveredPixelData"
+		]),
 		showColorSelector(e) {
 			const cell = e.target.closest(".bead-grid__cell");
 			this.nextGridPosition = cell.getBoundingClientRect();
 			const { id } = cell.dataset;
-			this.perlerToReplace = this.pixelData.filter(
+			this.perlerToReplace = this.pixelGridData.filter(
 				f => f.id.toString() == id.toString()
 			)[0];
 			this.isShowingColorSelector = true;
 		},
-		showToolTip(x, y) {
-			if (this.toolTipDelay) {
-				clearTimeout(this.toolTipDelay);
-				this.toolTipDelay = null;
-				this.isShowingBeadTip = false;
-			}
-
-			const that = this;
-			this.toolTipDelay = setTimeout(() => {
-				that.isShowingBeadTip = true;
-				console.log("bead grid", this.$refs.beadGrid);
-				const rect = this.$refs.beadGrid.getBoundingClientRect();
-				this.beadTipCoordinates = { x, y, rect };
-			}, 1000);
-		},
-		hoverCell(e) {
-			console.log(e);
-			this.showToolTip(e.x, e.y);
+		hoverCell(event) {
 			if (this.areMatchesHighlighted === false) return;
-			const cell = e.target;
-			const { id } = cell.dataset;
 
-			const perlerCell = this.pixelData.filter(
+			const cellElement = event.target;
+			const { id } = cellElement.dataset;
+
+			const hoveredPixel = this.pixelGridData.filter(
 				f => f.id.toString() === id.toString()
 			)[0];
 
-			this.pixelData.forEach(p => {
-				p.highlight = p.name === perlerCell.name;
+			this.$store.commit("updateHoveredPixelData", {
+				event,
+				pixel: hoveredPixel
+			});
+
+			this.pixelGridData.forEach(p => {
+				p.highlight = p.name === hoveredPixel.name;
 				if (p.highlight === true) {
 					p.key = `${p.id}-${p.highlight ? 1 : 0}`;
 				}
 			});
-
-			this.currentCell = perlerCell;
 		},
 		hslColor(pixel) {
 			return {
@@ -126,7 +123,7 @@ export default {
 
 			let replacementIndexes = [];
 			console.log(this.replacements);
-			const newPixelData = this.pixelData.map((p, i) => {
+			const newPixelGridData = this.pixelGridData.map((p, i) => {
 				if (p.hex === replacement.hex) {
 					replacementIndexes.push(i);
 					p = {
@@ -146,8 +143,8 @@ export default {
 				indexes: replacementIndexes
 			});
 
-			this.$store.commit("updatePixelData", {
-				pixelData: newPixelData,
+			this.$store.commit("updatePixelGridData", {
+				pixelGridData: newPixelGridData,
 				width: null,
 				height: null
 			});
@@ -155,12 +152,12 @@ export default {
 		undo() {
 			const lastChange = this.replacements.pop();
 			lastChange.indexes.forEach(i => {
-				this.pixelData[i] = {
+				this.pixelGridData[i] = {
 					...lastChange.beadToReplace,
 					id: Math.random().toString()
 				};
 			});
-			const newPixelData = this.pixelData.map((p, i) => {
+			const newPixelGridData = this.pixelGridData.map((p, i) => {
 				// if (p.closestHex === lastChange.beadToReplaceWith.hex) {
 				// 	p = {
 				// 		...lastChange.beadToReplace,
@@ -179,8 +176,8 @@ export default {
 				}
 				return p;
 			});
-			this.$store.commit("updatePixelData", {
-				pixelData: newPixelData,
+			this.$store.commit("updatePixelGridData", {
+				pixelGridData: newPixelGridData,
 				width: null,
 				height: null
 			});
@@ -189,28 +186,16 @@ export default {
 			clearTimeout(this.toolTipDelay);
 			this.toolTipDelay = null;
 			this.isShowingBeadTip = false;
-			this.pixelData.forEach(p => {
+			this.pixelGridData.forEach(p => {
 				p.highlight = false;
 			});
-		}
-	},
-	computed: {
-		...mapState([
-			"pixelData",
-			"width",
-			"height",
-			"zoom",
-			"areMatchesHighlighted"
-		]),
-		pixelsAreAvailable() {
-			return this.pixelData && this.pixelData.length > 0;
 		}
 	},
 	watch: {
 		zoom(newVal) {
 			this.changePixelSizing(newVal);
 		},
-		pixelData() {
+		pixelGridData() {
 			//TODO: how to remove timeout but still have $refs.beadGrid exist
 			const _this = this;
 			setTimeout(() => {
@@ -228,8 +213,7 @@ export default {
 		}
 	},
 	components: {
-		BeadColorSelector,
-		BeadTip
+		BeadColorSelector
 	}
 };
 </script>

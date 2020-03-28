@@ -6,12 +6,13 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
 	state: {
 		counter: 2,
-		pixelData: [],
+		pixelGridData: [],
 		width: 0,
 		height: 0,
 		zoom: 40,
 		base64: null,
-		areMatchesHighlighted: true
+		areMatchesHighlighted: true,
+		hoveredPixelData: null
 	},
 	getters: {
 		tripleCounter: state => {
@@ -24,18 +25,13 @@ export const store = new Vuex.Store({
 		getComponents: state => () => {
 			return state.registry.components;
 		},
-		getPixelData: state => state.pixelData,
-		getAreMatchesHighlighted: state => state.areMatchesHighlighted
+		getPixelGridData: state => state.pixelGridData,
+		getAreMatchesHighlighted: state => state.areMatchesHighlighted,
+		getHoveredPixelData: state => state.hoveredPixelData
 	},
 	mutations: {
-		increment: (state, num) => {
-			state.counter += num;
-		},
-		decrement: state => {
-			state.counter--;
-		},
-		updatePixelData: (state, payload) => {
-			state.pixelData = payload.pixelData;
+		updatePixelGridData: (state, payload) => {
+			state.pixelGridData = payload.pixelGridData;
 
 			state.width = payload.width || state.width;
 			state.height = payload.height || state.height;
@@ -45,6 +41,9 @@ export const store = new Vuex.Store({
 		},
 		updateBase64: (state, payload) => {
 			state.base64 = payload;
+		},
+		updateHoveredPixelData: (state, payload) => {
+			state.hoveredPixelData = payload;
 		},
 		updateAreMatchesHighlighted: (state, payload) => {
 			state.areMatchesHighlighted = payload;

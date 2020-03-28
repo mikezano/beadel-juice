@@ -44,17 +44,14 @@ export default {
 	data() {
 		return {
 			file: null,
-			pixelData: [],
+			pixelGridData: [],
 			zoom: 0,
 			showControls: false
 		};
 	},
-	// created() {
-	// 	console.log("functions exist:", nearestPerlerByHex);
-	// },
 	methods: {
 		...mapMutations([
-			"updatePixelData",
+			"updatePixelGridData",
 			"updateBase64",
 			"updateAreMatchesHighlighted"
 		]),
@@ -112,7 +109,7 @@ export default {
 			var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 			var data = imgData.data;
 
-			this.pixelData = []; //clear previous image
+			this.pixelGridData = []; //clear previous image
 			for (let i = 0; i < data.length; i += 4) {
 				const red = data[i];
 				const green = data[i + 1];
@@ -125,7 +122,7 @@ export default {
 
 				//console.log('HSL: ', hsl);
 				const rand = Math.random();
-				this.pixelData.push({
+				this.pixelGridData.push({
 					closestHex: closest.hex,
 					hex: hex,
 					rgb: `${red},${green},${blue}`,
@@ -136,12 +133,11 @@ export default {
 					code: closest.code
 				});
 			}
-			this.$store.commit("updatePixelData", {
-				pixelData: this.pixelData,
+			this.$store.commit("updatePixelGridData", {
+				pixelGridData: this.pixelGridData,
 				width: canvas.width,
 				height: canvas.height
 			});
-			//this.setPixelData(this.pixelData);
 		}
 	}
 };

@@ -5,6 +5,7 @@
 		</section>
 		<section class="beadz__view">
 			<BeadGrid :width="canvasWidth" :height="canvasHeight" :zoom="zoom" />
+			<BeadTip />
 		</section>
 		<section class="beadz__colors">
 			<ColorStats @on-highlight-pixels="highlightPixels" />
@@ -15,12 +16,12 @@
 <script>
 import Tools from "../components/Tools.vue";
 import BeadGrid from "../components/BeadGrid.vue";
+import BeadTip from "../components/BeadTip.vue";
 import ColorStats from "../components/ColorStats.vue";
 import { mapState } from "vuex";
 export default {
 	data() {
 		return {
-			//pixelData: [],
 			canvasHeight: 0,
 			canvasWidth: 0,
 			zoom: 0
@@ -29,12 +30,12 @@ export default {
 	components: {
 		Tools,
 		BeadGrid,
+		BeadTip,
 		ColorStats
 	},
 	methods: {
-		//...mapMutations(['updatePixelData']),
-		pixelsGenerated(pixelData, width, height) {
-			this.pixelData = pixelData;
+		pixelsGenerated(pixelGridData, width, height) {
+			this.pixelGridData = pixelGridData;
 			this.canvasWidth = width;
 			this.canvasHeight = height;
 		},
@@ -43,12 +44,12 @@ export default {
 		},
 		highlightPixels(name) {
 			if (name === null) {
-				this.pixelData.forEach(p => {
+				this.pixelGridData.forEach(p => {
 					p.highlight = false;
 					p.key = `${p.id}-0`;
 				});
 			} else {
-				this.pixelData.forEach(p => {
+				this.pixelGridData.forEach(p => {
 					p.highlight = p.name === name;
 					if (p.highlight === true) {
 						p.key = `${p.id}-${p.highlight ? 1 : 0}`;
@@ -58,7 +59,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["pixelData"])
+		...mapState(["pixelGridData"])
 	}
 };
 </script>
@@ -69,7 +70,7 @@ export default {
 
 	&__tools,
 	&__colors {
-		width: 200px;
+		width: 14rem;
 	}
 
 	&__view {

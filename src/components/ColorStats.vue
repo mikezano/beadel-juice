@@ -56,9 +56,9 @@ export default {
 			ctx.imageSmoothingEnabled = false;
 
 			let buffer = [];
-			for (let i = 0; i < this.pixelData.length; i++) {
+			for (let i = 0; i < this.pixelGridData.length; i++) {
 				const _i = i * 4;
-				const rgb = chroma(this.pixelData[i].closestHex).rgba();
+				const rgb = chroma(this.pixelGridData[i].closestHex).rgba();
 				buffer[_i] = rgb[0];
 				buffer[_i + 1] = rgb[1];
 				buffer[_i + 2] = rgb[2];
@@ -86,15 +86,15 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["pixelData", "base64", "width", "height"])
+		...mapState(["pixelGridData", "base64", "width", "height"])
 	},
 	watch: {
-		pixelData(newPixelData) {
-			if (!newPixelData) return;
+		pixelGridData(newPixelGridData) {
+			if (!newPixelGridData) return;
 
 			this.mappedPixels = [];
 			const _this = this;
-			newPixelData.forEach(pixel => {
+			newPixelGridData.forEach(pixel => {
 				const colorExists =
 					this.mappedPixels.filter(f => f.name === pixel.name)
 						.length > 0;
