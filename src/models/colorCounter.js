@@ -1,4 +1,4 @@
-const perler = require("../colors/perler.json");
+const perler = require("../colors/all.json");
 
 const perlerColors = {};
 

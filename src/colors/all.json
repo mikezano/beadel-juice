@@ -474,5 +474,334 @@
 		"rgb": "225,238,125",
 		"hex": "#e1ee7d",
 		"brand": "PERLER"
+	},
+	{
+		"code": "H01",
+		"name": "White",
+		"rgb": "236,237,237",
+		"hex": "#eceded",
+		"brand": "Hama"
+	},
+	{
+		"code": "H02",
+		"name": "Cream",
+		"rgb": "240,232,185",
+		"hex": "#f0e8b9",
+		"brand": "Hama"
+	},
+	{
+		"code": "H03",
+		"name": "Yellow",
+		"rgb": "240,185,1",
+		"hex": "#f0b901",
+		"brand": "Hama"
+	},
+	{
+		"code": "H04",
+		"name": "Orange",
+		"rgb": "230,79,39",
+		"hex": "#e64f27",
+		"brand": "Hama"
+	},
+	{
+		"code": "H05",
+		"name": "Red",
+		"rgb": "182,49,54",
+		"hex": "#b63136",
+		"brand": "Hama"
+	},
+	{
+		"code": "H06",
+		"name": "Pink",
+		"rgb": "225,136,159",
+		"hex": "#e1889f",
+		"brand": "Hama"
+	},
+	{
+		"code": "H07",
+		"name": "Purple",
+		"rgb": "105,74,130",
+		"hex": "#694a82",
+		"brand": "Hama"
+	},
+	{
+		"code": "H08",
+		"name": "Blue",
+		"rgb": "44,70,144",
+		"hex": "#2c4690",
+		"brand": "Hama"
+	},
+	{
+		"code": "H09",
+		"name": "Light Blue",
+		"rgb": "48,92,176",
+		"hex": "#305cb0",
+		"brand": "Hama"
+	},
+	{
+		"code": "H10",
+		"name": "Green",
+		"rgb": "37,104,71",
+		"hex": "#256847",
+		"brand": "Hama"
+	},
+	{
+		"code": "H11",
+		"name": "Light Green",
+		"rgb": "73,174,137",
+		"hex": "#49ae89",
+		"brand": "Hama"
+	},
+	{
+		"code": "H12",
+		"name": "Brown",
+		"rgb": "83,65,55",
+		"hex": "#534137",
+		"brand": "Hama"
+	},
+	{
+		"code": "H13",
+		"name": "Transparent Red",
+		"rgb": "192,36,53",
+		"hex": "#c02435",
+		"brand": "Hama"
+	},
+	{
+		"code": "H16",
+		"name": "Transparent Green",
+		"rgb": "55,184,118",
+		"hex": "#37b876",
+		"brand": "Hama"
+	},
+	{
+		"code": "H16",
+		"name": "Transparent Green",
+		"rgb": "55,184,118",
+		"hex": "#37b876",
+		"brand": "Hama"
+	},
+	{
+		"code": "H17",
+		"name": "Grey",
+		"rgb": "131,136,138",
+		"hex": "#83888a",
+		"brand": "Hama"
+	},
+	{
+		"code": "H18",
+		"name": "Black",
+		"rgb": "46,47,49",
+		"hex": "#2e2f31",
+		"brand": "Hama"
+	},
+	{
+		"code": "H19",
+		"name": "Clear",
+		"rgb": "216,210,206",
+		"hex": "#d8d2ce",
+		"brand": "Hama"
+	},
+	{
+		"code": "H20",
+		"name": "Reddish Brown",
+		"rgb": "127,51,42",
+		"hex": "#7f332a",
+		"brand": "Hama"
+	},
+	{
+		"code": "H21",
+		"name": "Light Brown",
+		"rgb": "165,105,63",
+		"hex": "#a5693f",
+		"brand": "Hama"
+	},
+	{
+		"code": "H22",
+		"name": "Dark Red",
+		"rgb": "165,45,54",
+		"hex": "#a52d36",
+		"brand": "Hama"
+	},
+	{
+		"code": "H24",
+		"name": "Translucent Purple",
+		"rgb": "104,62,154",
+		"hex": "#683e9a",
+		"brand": "Hama"
+	},
+	{
+		"code": "H25",
+		"name": "Translucent Brown",
+		"rgb": "135,89,61",
+		"hex": "#87593d",
+		"brand": "Hama"
+	},
+	{
+		"code": "H26",
+		"name": "Flesh",
+		"rgb": "222,155,144",
+		"hex": "#de9b90",
+		"brand": "Hama"
+	},
+	{
+		"code": "H27",
+		"name": "Beige",
+		"rgb": "222,180,139",
+		"hex": "#deb48b",
+		"brand": "Hama"
+	},
+	{
+		"code": "H28",
+		"name": "Dark Green",
+		"rgb": "54,63,56",
+		"hex": "#363f38",
+		"brand": "Hama"
+	},
+	{
+		"code": "H29",
+		"name": "Claret",
+		"rgb": "185,57,94",
+		"hex": "#b9395e",
+		"brand": "Hama"
+	},
+	{
+		"code": "H30",
+		"name": "Burgundy",
+		"rgb": "89,47,56",
+		"hex": "#592f38",
+		"brand": "Hama"
+	},
+	{
+		"code": "H31",
+		"name": "Turquoise",
+		"rgb": "103,151,174",
+		"hex": "#6797ae",
+		"brand": "Hama"
+	},
+	{
+		"code": "H32",
+		"name": "Fucia",
+		"rgb": "255,32,141",
+		"hex": "#ff208d",
+		"brand": "Hama"
+	},
+	{
+		"code": "H33",
+		"name": "Cerise",
+		"rgb": "255,57,86",
+		"hex": "#ff3956",
+		"brand": "Hama"
+	},
+	{
+		"code": "H34",
+		"name": "Neon Yellow",
+		"rgb": "229,239,19",
+		"hex": "#e5ef13",
+		"brand": "Hama"
+	},
+	{
+		"code": "H35",
+		"name": "Neon Red",
+		"rgb": "255,40,51",
+		"hex": "#ff2833",
+		"brand": "Hama"
+	},
+	{
+		"code": "H36",
+		"name": "Neon Blue",
+		"rgb": "35,83,176",
+		"hex": "#2353b0",
+		"brand": "Hama"
+	},
+	{
+		"code": "H37",
+		"name": "Neon Green",
+		"rgb": "6,183,60",
+		"hex": "#06b73c",
+		"brand": "Hama"
+	},
+	{
+		"code": "H38",
+		"name": "Neon Orange",
+		"rgb": "253,134,0",
+		"hex": "#fd8600",
+		"brand": "Hama"
+	},
+	{
+		"code": "H39",
+		"name": "Flourescent Yellow",
+		"rgb": "241,242,28",
+		"hex": "#f1f21c",
+		"brand": "Hama"
+	},
+	{
+		"code": "H40",
+		"name": "Flourescent Orange",
+		"rgb": "254,99,11",
+		"hex": "#fe630b",
+		"brand": "Hama"
+	},
+	{
+		"code": "H41",
+		"name": "Flourescent Blue",
+		"rgb": "38,89,178",
+		"hex": "#2659b2",
+		"brand": "Hama"
+	},
+	{
+		"code": "H42",
+		"name": "Flourescent Green",
+		"rgb": "12,189,81",
+		"hex": "#0cbd51",
+		"brand": "Hama"
+	},
+	{
+		"code": "H43",
+		"name": "Pastel Yellow",
+		"rgb": "240,234,55",
+		"hex": "#f0ea37",
+		"brand": "Hama"
+	},
+	{
+		"code": "H44",
+		"name": "Pastel Red",
+		"rgb": "238,105,114",
+		"hex": "#ee6972",
+		"brand": "Hama"
+	},
+	{
+		"code": "H45",
+		"name": "Pastel Purple",
+		"rgb": "136,109,185",
+		"hex": "#886db9",
+		"brand": "Hama"
+	},
+	{
+		"code": "H46",
+		"name": "Pastel Blue",
+		"rgb": "98,158,215",
+		"hex": "#629ed7",
+		"brand": "Hama"
+	},
+	{
+		"code": "H47",
+		"name": "Pastel Green",
+		"rgb": "131,203,112",
+		"hex": "#83cb70",
+		"brand": "Hama"
+	},
+	{
+		"code": "H48",
+		"name": "Pastel Pink",
+		"rgb": "207,112,183",
+		"hex": "#cf70b7",
+		"brand": "Hama"
+	},
+	{
+		"code": "H49",
+		"name": "Azure",
+		"rgb": "73,152,188",
+		"hex": "#4998bc",
+		"brand": "Hama"
 	}
 ]

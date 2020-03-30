@@ -2,7 +2,7 @@
 	<div class="bead-tip">
 		<table v-if="isShowing">
 			<tr>
-				<td>{{pixel.name}} - {{pixel.code}}</td>
+				<td>{{pixel.name}}: {{pixel.code}}</td>
 				<td class="bead-tip__spacer">|</td>
 				<td>Color</td>
 				<td :style="{backgroundColor: pixel.closestHex}">
