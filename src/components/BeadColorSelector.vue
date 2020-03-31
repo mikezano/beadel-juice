@@ -23,7 +23,7 @@ export default {
 		};
 	},
 	mounted() {
-		console.log(this.gridPosition);
+		console.log("Beads", this.beads);
 		const rect = this.$refs.bcs.parentNode.getBoundingClientRect();
 		this.containerRect = rect;
 	},

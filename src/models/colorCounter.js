@@ -22,14 +22,33 @@ const nearestPerlerByHex_Chroma = hexColor => {
 	perler.forEach(p => {
 		//if p is in list, skip
 		const currentDistance = chroma.distance(p.hex, hexColor);
+		const currentDistanceLAB = 0; //chroma.distance(p.hex, hexColor, "lab");
+		const currentDistanceHSL = 0; //chroma.distance(p.hex, hexColor, "hsl");
+		const currentDistanceRGB = chroma.distance(p.hex, hexColor, "rgb");
+		const totalDistance =
+			currentDistance +
+			currentDistanceLAB +
+			currentDistanceHSL +
+			currentDistanceRGB;
 
-		if (currentDistance < minDistance) {
-			minDistance = currentDistance;
+		if (totalDistance < minDistance) {
+			minDistance = totalDistance;
 			nearestPerler = p;
 		}
 	});
 
 	return nearestPerler;
+};
+
+const sortedBeads = () => {
+	let beadsWithDistance = perler.map(m => {
+		return { ...m, distance: chroma.deltaE("#ffffff", m.hex) };
+	});
+	beadsWithDistance.sort((a, b) => {
+		return a.distance > b.distance ? 1 : -1;
+	});
+
+	return beadsWithDistance;
 };
 
 const nearestNcolorsByHex_Chroma = (hexColor, n) => {
@@ -105,6 +124,7 @@ const rgbToHex = (r, g, b) => {
 
 export {
 	perler,
+	sortedBeads,
 	exactPerlerByHex,
 	nearestPerlerByHex_Euclidian as nearestPerlerByHex,
 	rgbToHSL,

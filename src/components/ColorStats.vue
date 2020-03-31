@@ -44,7 +44,11 @@ export default {
 			this.$emit("on-highlight-pixels", highlight);
 		},
 		bgColor(pixel) {
-			return { backgroundColor: pixel.hex };
+			console.log(pixel);
+			if (pixel.name === "Translucent Purple") {
+				console.log(pixel);
+			}
+			return { backgroundColor: pixel.closestHex };
 		},
 		drawFinalResult() {
 			var canvas = this.$refs.finalResult;
