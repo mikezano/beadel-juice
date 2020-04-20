@@ -6,13 +6,14 @@
 			<li class="bcs__item" v-for="bead in beads" :key="bead.id" @click="onColorSelect(bead)">
 				<div class="bcs__item-color" :style="{backgroundColor: bead.hex}"></div>
 				<div class="bcs__item-name">{{bead.name}}</div>
+				<div class="bcs__item-brand">{{bead.brand}}</div>
 			</li>
 		</ul>
 	</div>
 </template>
 
 <script>
-import { perler } from "../models/colorCounter";
+import { perler, sortedBeads } from "../models/colorCounter";
 export default {
 	props: ["gridPosition"],
 	data() {
@@ -26,6 +27,8 @@ export default {
 		console.log("Beads", this.beads);
 		const rect = this.$refs.bcs.parentNode.getBoundingClientRect();
 		this.containerRect = rect;
+		const beads = sortedBeads();
+		console.log(beads);
 	},
 	methods: {
 		close() {
@@ -104,4 +107,3 @@ export default {
 	}
 }
 </style>
-

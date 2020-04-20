@@ -41,14 +41,16 @@ const nearestPerlerByHex_Chroma = hexColor => {
 };
 
 const sortedBeads = () => {
-	let beadsWithDistance = perler.map(m => {
-		return { ...m, distance: chroma.deltaE("#ffffff", m.hex) };
-	});
-	beadsWithDistance.sort((a, b) => {
-		return a.distance > b.distance ? 1 : -1;
+	let beadsWithAvgRGB = perler.map(m => {
+		let hue = chroma(m.hex).hsl()[0];
+		return { ...m, hue };
 	});
 
-	return beadsWithDistance;
+	beadsWithAvgRGB.sort((a, b) => {
+		return a.hue > b.hue ? 1 : -1;
+	});
+
+	return beadsWithAvgRGB;
 };
 
 const nearestNcolorsByHex_Chroma = (hexColor, n) => {
