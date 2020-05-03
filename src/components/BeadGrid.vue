@@ -24,8 +24,9 @@
 		<BeadColorSelector
 			@on-color-select="changeColor"
 			@on-color-selector-close="closeColorSelector"
+			@on-next-closest-color="selectNextClosestColor"
 			v-if="isShowingColorSelector"
-			:gridPosition="nextGridPosition"
+			:selectedCell="selectedCell"
 		/>
 	</div>
 </template>
@@ -33,6 +34,7 @@
 <script>
 import BeadColorSelector from "./BeadColorSelector.vue";
 import { mapState, mapMutations } from "vuex";
+import { closestColorMatcher } from "../models/colorCounter";
 
 export default {
 	data() {
@@ -40,8 +42,9 @@ export default {
 			isShowingColorSelector: false,
 			isShowingBeadTip: false,
 			//currentCell: null,
-			perlerToReplace: null,
-			nextGridPosition: null,
+			//cellToReplace: null,
+			selectedCell: null,
+			//nextGridPosition: null,
 			toolTipDelay: null,
 			replacements: [],
 			beadTipCoordinates: { x: 0, y: 0 }
@@ -72,13 +75,21 @@ export default {
 			"updateZoom",
 			"updateHoveredPixelData"
 		]),
+		selectNextClosestColor() {
+			const { closestHex } = this.selectedCell.data;
+			const closestMatch = closestColorMatcher(closestHex, true);
+			this.changeColor(closestMatch);
+			console.log("Closest Match:", closestMatch);
+		},
 		showColorSelector(e) {
-			const cell = e.target.closest(".bead-grid__cell");
-			this.nextGridPosition = cell.getBoundingClientRect();
-			const { id } = cell.dataset;
-			this.perlerToReplace = this.pixelGridData.filter(
+			const cellElement = e.target.closest(".bead-grid__cell");
+			//this.nextGridPosition = cellElement.getBoundingClientRect();
+			//this.selectedCellElement = cellElement;
+			const { id } = cellElement.dataset;
+			this.cellToReplace = this.pixelGridData.filter(
 				f => f.id.toString() == id.toString()
 			)[0];
+			this.selectedCell = { data: this.cellToReplace, el: cellElement };
 			this.isShowingColorSelector = true;
 		},
 		hoverCell(event) {
@@ -119,10 +130,9 @@ export default {
 			this.isShowingColorSelector = false;
 		},
 		changeColor(bead) {
-			const replacement = this.perlerToReplace;
+			const replacement = this.selectedCell.data;
 
 			let replacementIndexes = [];
-			console.log(this.replacements);
 			const newPixelGridData = this.pixelGridData.map((p, i) => {
 				if (p.hex === replacement.hex) {
 					replacementIndexes.push(i);

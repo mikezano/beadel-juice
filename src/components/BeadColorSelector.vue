@@ -2,6 +2,7 @@
 	<div class="bcs" draggable="true" @mousedown="dragStart" ref="bcs">
 		<i class="bcs__close" @click="close">X</i>
 		<h3 class="bcs__title">Color Switch</h3>
+		<button @click="nextClosestColor">Next</button>
 		<ul class="bcs__list">
 			<li class="bcs__item" v-for="bead in beads" :key="bead.id" @click="onColorSelect(bead)">
 				<div class="bcs__item-color" :style="{backgroundColor: bead.hex}"></div>
@@ -15,7 +16,7 @@
 <script>
 import { perler, sortedBeads } from "../models/colorCounter";
 export default {
-	props: ["gridPosition"],
+	props: ["selectedCell"],
 	data() {
 		return {
 			beads: perler,
@@ -24,15 +25,20 @@ export default {
 		};
 	},
 	mounted() {
-		console.log("Beads", this.beads);
+		//console.log("Beads", this.beads);
 		const rect = this.$refs.bcs.parentNode.getBoundingClientRect();
 		this.containerRect = rect;
-		const beads = sortedBeads();
-		console.log(beads);
+		//const beads = sortedBeads();
+		//console.log(beads);
+		this.beads = sortedBeads();
+		console.log("Selected Cell,", this.selectedCell);
 	},
 	methods: {
 		close() {
 			this.$emit("on-color-selector-close");
+		},
+		nextClosestColor() {
+			this.$emit("on-next-closest-color", true);
 		},
 		dragStart(e) {
 			const rect = this.$refs.bcs.getBoundingClientRect();
@@ -68,7 +74,6 @@ export default {
 	position: absolute;
 	top: 0;
 	background-color: #333;
-	//border: 0.2rem solid #222;
 	box-shadow: 0 0 2rem black;
 	&__close {
 		position: absolute;

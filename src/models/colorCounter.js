@@ -16,15 +16,16 @@ const nearestPerlerByHex_Euclidian = hexColor => {
 	return exactPerlerByHex(hex);
 };
 
+//hexColor comes directly off the canvas pixels
 const nearestPerlerByHex_Chroma = hexColor => {
 	let minDistance = 1000000;
 	let nearestPerler = null;
 	perler.forEach(p => {
-		//if p is in list, skip
 		const currentDistance = chroma.distance(p.hex, hexColor);
 		const currentDistanceLAB = 0; //chroma.distance(p.hex, hexColor, "lab");
 		const currentDistanceHSL = 0; //chroma.distance(p.hex, hexColor, "hsl");
 		const currentDistanceRGB = chroma.distance(p.hex, hexColor, "rgb");
+
 		const totalDistance =
 			currentDistance +
 			currentDistanceLAB +
@@ -38,6 +39,34 @@ const nearestPerlerByHex_Chroma = hexColor => {
 	});
 
 	return nearestPerler;
+};
+
+//hexColor comes directly off the canvas pixels
+const closestColorMatcher = (hexColor, ignoreExact) => {
+	let minDistance = 1000000;
+	let closestColor = null;
+	perler.forEach(p => {
+		if (p.hex.toLowerCase() === hexColor && ignoreExact) {
+			return;
+		}
+		const currentDistance = chroma.distance(p.hex, hexColor);
+		const currentDistanceLAB = 0; //chroma.distance(p.hex, hexColor, "lab");
+		const currentDistanceHSL = 0; //chroma.distance(p.hex, hexColor, "hsl");
+		const currentDistanceRGB = chroma.distance(p.hex, hexColor, "rgb");
+
+		const totalDistance =
+			currentDistance +
+			currentDistanceLAB +
+			currentDistanceHSL +
+			currentDistanceRGB;
+
+		if (totalDistance < minDistance) {
+			minDistance = totalDistance;
+			closestColor = p;
+		}
+	});
+
+	return closestColor;
 };
 
 const sortedBeads = () => {
@@ -61,7 +90,6 @@ const nearestNcolorsByHex_Chroma = (hexColor, n) => {
 		collection.push(closestPerler);
 		nextHex = closestPerler.hex;
 	}
-	debugger;
 	return collection;
 };
 
@@ -132,5 +160,6 @@ export {
 	rgbToHSL,
 	rgbToHex,
 	nearestPerlerByHex_Chroma,
-	nearestNcolorsByHex_Chroma
+	nearestNcolorsByHex_Chroma,
+	closestColorMatcher
 };

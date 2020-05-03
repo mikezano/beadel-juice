@@ -15,7 +15,10 @@
 				@mouseover="highlightPixels"
 			>
 				<div class="deets__pixel-color" :style="bgColor(pixel)"></div>
-				<div class="deets__pixel-name">{{ pixel.name }}</div>
+				<div class="deets__pixel-name">
+					<div>{{ pixel.name }}</div>
+					<div>{{ pixel.code }}</div>
+				</div>
 				<div class="deets__pixel-count">{{ pixel.count }}</div>
 			</li>
 		</ul>
@@ -167,6 +170,8 @@ export default {
 	}
 	&__pixel-name {
 		width: 10rem;
+		font-size: 0.8rem;
+		padding-left: 0.2rem;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
