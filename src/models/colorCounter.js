@@ -42,11 +42,15 @@ const nearestPerlerByHex_Chroma = hexColor => {
 };
 
 //hexColor comes directly off the canvas pixels
-const closestColorMatcher = (hexColor, ignoreExact) => {
+const closestColorMatcher = (hexColor, ignoreExact, ignoreList) => {
 	let minDistance = 1000000;
 	let closestColor = null;
+	debugger;
 	perler.forEach(p => {
-		if (p.hex.toLowerCase() === hexColor && ignoreExact) {
+		if (
+			(p.hex.toLowerCase() === hexColor && ignoreExact) ||
+			ignoreList.indexOf(p.hex) > -1
+		) {
 			return;
 		}
 		const currentDistance = chroma.distance(p.hex, hexColor);

@@ -43,11 +43,9 @@ export default {
 				? null
 				: e.currentTarget.dataset.name;
 
-			console.log(e.currentTarget.dataset.name);
 			this.$emit("on-highlight-pixels", highlight);
 		},
 		bgColor(pixel) {
-			console.log(pixel);
 			if (pixel.name === "Translucent Purple") {
 				console.log(pixel);
 			}

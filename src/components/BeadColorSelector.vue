@@ -21,7 +21,8 @@ export default {
 		return {
 			beads: perler,
 			dragStartPos: { x: 0, y: 0 },
-			containerRect: null
+			containerRect: null,
+			ignoreList: []
 		};
 	},
 	mounted() {
@@ -38,7 +39,9 @@ export default {
 			this.$emit("on-color-selector-close");
 		},
 		nextClosestColor() {
-			this.$emit("on-next-closest-color", true);
+			console.log("Ignore List", this.ignoreList);
+			this.ignoreList.push(this.selectedCell.data.closestHex);
+			this.$emit("on-next-closest-color", this.ignoreList);
 		},
 		dragStart(e) {
 			const rect = this.$refs.bcs.getBoundingClientRect();
@@ -64,6 +67,17 @@ export default {
 		},
 		onColorSelect(bead) {
 			this.$emit("on-color-select", bead);
+		}
+	},
+	watch: {
+		selectedCell(newVal, prevVal) {
+			console.log(newVal, prevVal);
+			if (
+				newVal.data.closestHex !== prevVal.data.closestHex &&
+				newVal.data.id !== prevVal.data.id
+			) {
+				this.ignoreList = [];
+			}
 		}
 	}
 };

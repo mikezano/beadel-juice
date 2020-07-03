@@ -47,7 +47,8 @@ export default {
 			//nextGridPosition: null,
 			toolTipDelay: null,
 			replacements: [],
-			beadTipCoordinates: { x: 0, y: 0 }
+			beadTipCoordinates: { x: 0, y: 0 },
+			previousAltBeads: []
 		};
 	},
 	created() {
@@ -75,10 +76,25 @@ export default {
 			"updateZoom",
 			"updateHoveredPixelData"
 		]),
-		selectNextClosestColor() {
+		selectNextClosestColor(ignoreList) {
 			const { closestHex } = this.selectedCell.data;
-			const closestMatch = closestColorMatcher(closestHex, true);
+			const closestMatch = closestColorMatcher(
+				closestHex,
+				true,
+				ignoreList
+			);
 			this.changeColor(closestMatch);
+
+			const newData = {
+				...this.selectedCell.data,
+				closestHex: closestMatch.hex,
+				code: closestMatch.code,
+				name: closestMatch.name,
+				rgb: closestMatch.rgb
+			};
+			this.selectedCell = { el: this.selectedCell.el, data: newData };
+			console.log("Ignore List:", ignoreList);
+			console.log("Selected Cell:", this.selectedCell);
 			console.log("Closest Match:", closestMatch);
 		},
 		showColorSelector(e) {
