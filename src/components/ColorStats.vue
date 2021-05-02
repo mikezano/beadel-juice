@@ -17,7 +17,7 @@
 				<div class="deets__pixel-color" :style="bgColor(pixel)"></div>
 				<div class="deets__pixel-name">
 					<div>{{ pixel.name }}</div>
-					<div>{{ pixel.code }}</div>
+					<div class="deets__pixel-code">{{ pixel.code }}</div>
 				</div>
 				<div class="deets__pixel-count">{{ pixel.count }}</div>
 			</li>
@@ -172,6 +172,9 @@ export default {
 		padding-left: 0.2rem;
 		overflow: hidden;
 		text-overflow: ellipsis;
+	}
+	&__pixel-code {
+		font-size: 0.6rem;
 	}
 	&__pixel-color {
 		width: 1rem;

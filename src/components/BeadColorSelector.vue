@@ -6,8 +6,11 @@
 		<ul class="bcs__list">
 			<li class="bcs__item" v-for="bead in beads" :key="bead.id" @click="onColorSelect(bead)">
 				<div class="bcs__item-color" :style="{backgroundColor: bead.hex}"></div>
-				<div class="bcs__item-name">{{bead.name}}</div>
-				<div class="bcs__item-brand">{{bead.brand}}</div>
+				<div class="bcs__item-description">
+					<div class="bcs__item-name">{{bead.name}}</div>
+					<div class="bcs__item-code">{{bead.code}}</div>
+				</div>
+
 			</li>
 		</ul>
 	</div>
@@ -89,6 +92,7 @@ export default {
 	top: 0;
 	background-color: #333;
 	box-shadow: 0 0 2rem black;
+	font-size: 0.8rem;
 	&__close {
 		position: absolute;
 		right: 0.5rem;
@@ -105,23 +109,29 @@ export default {
 	}
 	&__list {
 		margin: 0;
-		padding: 0;
+		padding: 1rem 0;
 		height: 10rem;
 		overflow: auto;
 		background-color: #222;
 	}
 	&__item {
 		display: flex;
-		padding: 0.2rem;
+		padding: 0.2rem 1rem;
+	}
+
+	&__item-description{
+		text-align: left;
+	}
+	&__item-code {
+		font-size: 0.6rem;
 	}
 	&__item:hover {
-		background-color: #333;
+		background-color: #555;
 		cursor: pointer;
 	}
 	&__item-color {
 		width: 1rem;
 		height: 1rem;
-		border-radius: 50%;
 		margin-right: 0.1rem;
 	}
 }

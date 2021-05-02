@@ -1,0 +1,12 @@
+{
+   "workbench.iconTheme": "vscode-icons",
+   "editor.renderWhitespace": "all",
+   "editor.useTabStops": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "[typescript, javascript, html, json, vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
+    "vetur.format.enable":true
+
+}
